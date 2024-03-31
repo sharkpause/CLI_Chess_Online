@@ -15,8 +15,10 @@ app.use([
 ]);
 
 const signup = require('./routes/signup');
+const retrieveDatabase = require('./routes/retrieveDatabase');
 
 app.use('/api/signup', signup);
+app.use('/api/retrieve-database', retrieveDatabase);
 
 const PORT = process.env.PORT || 3000;
 
