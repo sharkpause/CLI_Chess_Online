@@ -3,5 +3,4 @@ TODO:
 - Make login API
 - Make signup interface
 - Make login interface
-- Encrypt passwords
 - Set up JWT Secret
