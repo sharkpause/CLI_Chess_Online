@@ -16,10 +16,12 @@ app.use([
 
 const signup = require('./routes/signup');
 const login = require('./routes/login');
+const verifyCode = require('./routes/verifyCode');
 const retrieveDatabase = require('./routes/retrieveDatabase');
 
 app.use('/api/signup', signup);
 app.use('/api/login', login);
+app.use('/api/verifyCode', verifyCode);
 app.use('/api/retrieve-database', retrieveDatabase);
 
 const PORT = process.env.PORT || 3000;

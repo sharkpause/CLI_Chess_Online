@@ -22,7 +22,7 @@ async function signup(req, res) {
 
 		const searchedCode = await VerifyCode.findOne({ email });
 		if(!searchedCode) {
-			emailCode = Math.floor(100000 + Math.random() * 900000);
+			emailCode = Math.floor(10000000 + Math.random() * 90000000);
 			await VerifyCode.create({ code: emailCode, username, email, password });
 		} else {
 			emailCode = searchedCode.code;

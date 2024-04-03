@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const VerifyCodeSchema = new mongoose.Schema({
-	Code: {
+	code: {
 		type: Number,
 		unique: true
 	},
