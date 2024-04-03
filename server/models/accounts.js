@@ -30,10 +30,6 @@ const AccountSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true
-	},
-	cookieAccepted: {
-		type: Boolean,
-		required: true
 	}
 });
 
