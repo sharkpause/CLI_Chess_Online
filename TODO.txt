@@ -1,6 +1,4 @@
 TODO:
 
-- Make login API
 - Make signup interface
 - Make login interface
-- Set up JWT Secret

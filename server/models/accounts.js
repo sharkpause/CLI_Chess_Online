@@ -31,6 +31,10 @@ const AccountSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	cookieAccepted: {
+		type: Boolean,
+		required: true
+	}
 });
 
 AccountSchema.pre('save', async function(next) {

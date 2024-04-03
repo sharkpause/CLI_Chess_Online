@@ -2,7 +2,7 @@ const Account = require('../models/accounts');
 const { StatusCodes } = require('http-status-codes');
 
 async function signup(req, res) {
-	const { username, email, password } = req.body;
+	const { username, email, password, cookieAccepted } = req.body;
 
 	try {
 		if((await Account.find({ username }).length > 0)) {
@@ -15,7 +15,8 @@ async function signup(req, res) {
 		const user = await Account.create({
 			username,
 			email,
-			password
+			password,
+			cookieAccepted
 		});
 
 		res.status(StatusCodes.OK).json({ database: await Account.find({}) });
