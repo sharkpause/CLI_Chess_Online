@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
-const AccountSchema = new mongoose.Schema({
+const VerifyCodeSchema = new mongoose.Schema({
+	Code: {
+		type: Number,
+		unique: true
+	},
 	username: {
 		type: String,
 		required: true,
@@ -30,20 +34,24 @@ const AccountSchema = new mongoose.Schema({
 	password: {
 		type: String,
 		required: true
+	},
+});
+
+VerifyCodeSchema.pre('save',  async function(next) {
+	const user = this;
+
+	if(!user.isModified('password')) next();
+
+	try {
+		const salt = await bcrypt.genSalt(10);
+
+		const hash = await bcrypt.hash(user.password, salt);
+
+		user.password = hash;
+	} catch(err) {
+		return next(err);
 	}
 });
 
-//AccountSchema.pre('save', async function(next) {
-//	const user = this;
-//	if(!user.isModified('password')) return next();
-//	try {
-//		const salt = await bcrypt.genSalt(10);
-//		const hash = await bcrypt.hash(user.password, salt);
-//
-//		user.password = hash;
-//	} catch(err) {
-//		next(err);
-//	}
-//});
 
-module.exports = mongoose.model('Account', AccountSchema, 'accounts');
+module.exports = mongoose.model('VerifyCode', VerifyCodeSchema, 'verifyCodes');
