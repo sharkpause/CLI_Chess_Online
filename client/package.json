@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "alternate-screen": "^1.0.0",
+    "blessed": "^0.1.81",
+    "blessed-contrib": "^4.11.0",
     "readline-sync": "^1.4.10"
   }
 }
