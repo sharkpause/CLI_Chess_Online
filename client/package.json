@@ -2,6 +2,19 @@
   "dependencies": {
     "@inquirer/prompts": "^4.3.1",
     "alternate-screen": "^1.0.0",
+    "chalk": "^5.3.0",
     "readline-sync": "^1.4.10"
-  }
+  },
+  "name": "client",
+  "version": "1.0.0",
+  "main": "client.js",
+  "devDependencies": {},
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
 }

@@ -22,7 +22,7 @@ const AccountSchema = new mongoose.Schema({
 		maxlength: 500,
 		validate: {
 			validator: email => {
-				return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm;
+				return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm.test(email);
 			},
 			message: 'Invalid email'
 		}
