@@ -1,10 +1,37 @@
-const blessed = require('blessed');
-const contrib = require('blessed-contrib');
+#! /usr/bin/env node
 
-const screen = blessed.screen();
+const { show, hide } = require('alternate-screen');
+const { select, Separator } = require('@inquirer/prompts');
 
-screen.key(['escape', 'q', 'C-c'], function(ch, key) {
-	return process.exit(0);
-});
+async function ui() {
+	show();
+	console.clear();
 
-screen.render();
+	const answer = await select({
+		message: 'Welcome to CLI Chess Online!\n',
+		choices: [
+			{
+				name: 'Play a game',
+				value: 'play',
+			},
+			new Separator(),
+			{
+				name: 'Log in',
+				value: 'login'
+			},
+			{
+				name: 'Sign up',
+				value: 'signup'
+			},
+			new Separator(),
+			{
+				name: 'Quit',
+				value: 'quit'
+			}
+		]
+	});
+
+	hide();
+}
+
+ui();
