@@ -1,6 +1,7 @@
 #! /usr/bin/env node
 
 import chalk from 'chalk';
+import axios from 'axios';
 
 import { show, hide } from 'alternate-screen';
 import { select, input, password, confirm, Separator } from '@inquirer/prompts';
@@ -61,7 +62,8 @@ async function signUpUI() {
 		} else if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm.test(emailInput)) {
 			errorMessage = 'Invalid email address!';
 		} else {
-		//	const result = signUpUser();
+			const result = signUpUser();
+			break;
 			//	TODO: Verify availability of username and email
 		}
 	}
@@ -93,8 +95,13 @@ async function signUpUI() {
 	}
 }
 
-function signUpUser() {
-	; // TODO: Send request to /api/signup
+async function signUpUser(username, email, password) {
+	try {
+		;
+	} catch(err) {
+		;
+	}
+	 // TODO: Send request to /api/signup
 }
 
 mainMenuUI();

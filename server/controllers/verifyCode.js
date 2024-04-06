@@ -19,7 +19,7 @@ async function verifyCode(req, res) {
 		
 		res.status(StatusCodes.OK).json({ code: 0, message: 'Successfully verified email, account created' });
 	} else {
-		res.status.(StautsCodes.UNAUTHORIZED).json({ code: 1, message: 'Code does not match' });
+		res.status(StautsCodes.UNAUTHORIZED).json({ code: 1, message: 'Code does not match' });
 	}
 }
 
