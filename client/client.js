@@ -62,9 +62,15 @@ async function signUpUI() {
 		} else if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm.test(emailInput)) {
 			errorMessage = 'Invalid email address!';
 		} else {
-			const result = signUpUser();
-			break;
-			//	TODO: Verify availability of username and email
+			const result = await signUpUser(usernameInput, emailInput, passwordInput);
+			
+			if(result == 1) {
+				errorMessage = 'Username already in use!';
+			} else if(result == 2) {
+				errorMessage = 'Email already in use!';
+			} else if(result == 0) {
+				break;
+			}
 		}
 	}
 
@@ -97,11 +103,14 @@ async function signUpUI() {
 
 async function signUpUser(username, email, password) {
 	try {
-		;
+		const response = await axios.post('http://localhost:3000/api/signup', {
+			username, email, password
+		});
+
+		return 0;
 	} catch(err) {
-		;
+		return err.response.data.code;
 	}
-	 // TODO: Send request to /api/signup
 }
 
 mainMenuUI();

@@ -12,10 +12,10 @@ async function signup(req, res) {
 
 	try {
 		if(await Account.findOne({ username })) {
-			return res.status(StatusCodes.CONFLICT).json({ errorCode: 1, message: 'Username already in use' });
+			return res.status(StatusCodes.CONFLICT).json({ code: 1, message: 'Username already in use' });
 		}
 		if(await Account.findOne({ email })) {
-			return res.status(StatusCodes.CONFLICT).json({ errorCode: 2, message: 'Email already in use' });
+			return res.status(StatusCodes.CONFLICT).json({ code: 2, message: 'Email already in use' });
 		}
 
 		let emailCode;
@@ -45,7 +45,7 @@ async function signup(req, res) {
 
 		await transporter.sendMail(mailOptions);
 
-		res.status(StatusCodes.OK).json({ message: 'Please check your email for a code' });
+		res.status(StatusCodes.OK).json({ code: 0, message: 'Please check your email for a code' });
 	} catch(err) {
 		if(err.statusCode === 409)  {
 			throw err;
