@@ -62,6 +62,7 @@ async function signUpUI() {
 		} else if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm.test(emailInput)) {
 			errorMessage = 'Invalid email address!';
 		} else {
+			console.log(chalk.cyan('\nSending email with the verification code...Please wait patiently'));
 			const result = await signUpUser(usernameInput, emailInput, passwordInput);
 			
 			if(result == 1) {
@@ -81,7 +82,7 @@ async function verifyCodeUI(username, email, password) {
 	while(true) {
 		console.clear();
 		const gotCode = await confirm({
-			message: 'Please check your email for a verification code. ' + chalk.cyan('Have you received the code yet?\n')
+			message: chalk.cyan('Have you received the email with the code?')
 		});
 
 		if(gotCode === false) {
@@ -100,10 +101,27 @@ async function verifyCodeUI(username, email, password) {
 				message: chalk.cyan('Please input the code you received in the email: ')
 			});
 
-			// TODO: Check the code by sending request to /api/verifyCode
+			const result = verifyCode(verificationCodeInput);
+
+			if(result === 0) { // Redirect to login page or something
+				console.log('Successfully created account!');
+				process.exit(0);
+			} else if(result === 1) { // Redo the loop or something with an error message
+				process.exit(1);
+			}
 		}
 	}
 
+}
+
+async function verifyCode(code) {
+	try {
+		const response = await axios.post('http://localhost:3000/api/verify-code', { code });
+
+		return 0;
+	} catch(err) {
+		return err.response.data.code;
+	}
 }
 
 async function signUpUser(username, email, password) {
