@@ -69,11 +69,15 @@ async function signUpUI() {
 			} else if(result == 2) {
 				errorMessage = 'Email already in use!';
 			} else if(result == 0) {
+				verifyCodeUI(usernameInput, emailInput, passwordInput);
 				break;
 			}
 		}
 	}
 
+}
+
+async function verifyCodeUI(username, email, password) {
 	while(true) {
 		console.clear();
 		const gotCode = await confirm({
@@ -86,7 +90,7 @@ async function signUpUI() {
 			});
 
 			if(resendCode === true) {
-				signUpUser();
+				signUpUser(username, email, password);
 			} else {
 				mainMenuUI();
 				break;
@@ -99,6 +103,7 @@ async function signUpUI() {
 			// TODO: Check the code by sending request to /api/verifyCode
 		}
 	}
+
 }
 
 async function signUpUser(username, email, password) {

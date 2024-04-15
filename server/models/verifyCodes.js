@@ -9,7 +9,7 @@ const VerifyCodeSchema = new mongoose.Schema({
 	username: {
 		type: String,
 		required: true,
-		unique: true,
+		unique: false,
 		maxlength: 30,
 		minLength: 3,
 		validate: {
