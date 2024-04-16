@@ -79,15 +79,22 @@ async function signUpUI() {
 }
 
 async function verifyCodeUI(username, email, password) {
+	let errorMessage = '';
+
 	while(true) {
 		console.clear();
+
+		if(errorMessage) console.log(chalk.red(errorMessage) + '\n');
+		
 		const gotCode = await confirm({
 			message: chalk.cyan('Have you received the email with the code?')
 		});
 
+		console.log(); // empty console.log()'s are for UI purposes
+
 		if(gotCode === false) {
 			const resendCode = await confirm({
-				message: chalk.cyan('\nWould you like the code to be resent?')
+				message: chalk.cyan('Would you like the code to be resent?')
 			});
 
 			if(resendCode === true) {
@@ -101,13 +108,13 @@ async function verifyCodeUI(username, email, password) {
 				message: chalk.cyan('Please input the code you received in the email: ')
 			});
 
-			const result = verifyCode(verificationCodeInput);
+			const result = await verifyCode(verificationCodeInput);
 
 			if(result === 0) { // Redirect to login page or something
 				console.log('Successfully created account!');
-				process.exit(0);
+				return 0;
 			} else if(result === 1) { // Redo the loop or something with an error message
-				process.exit(1);
+				errorMessage = 'Code does not match!';
 			}
 		}
 	}

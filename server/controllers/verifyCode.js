@@ -6,7 +6,6 @@ const { StatusCodes } = require('http-status-codes');
 async function verifyCode(req, res) {
 	const { code } = req.body;
 
-	console.log(code);
 	const userData = await VerifyCode.findOne({ code });
 
 	if(userData) {
