@@ -1,5 +1,5 @@
 TODO:
 
-- Make a feature where only ons instance of an account can exist
+- Make a feature where only one instance of an account can exist
 - Make signup interface
 - Make login interface
