@@ -10,6 +10,16 @@ require('dotenv').config();
 async function signup(req, res) {
 	const { username, email, password } = req.body;
 
+	if(!username) {
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 3, message: 'Please provide username' });
+	}
+	if(!email) {
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 4, message: 'Please provide email' });
+	}
+	if(!password) {
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 5, message: 'Please provide password' });
+	}
+
 	try {
 		if(await Account.findOne({ username })) {
 			return res.status(StatusCodes.CONFLICT).json({ code: 1, message: 'Username already in use' });

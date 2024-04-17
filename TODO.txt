@@ -1,7 +1,5 @@
 TODO:
 
-- Test verify codes
-- Fix bugs with unexpected inputs on backend and frontend
 - Make a feature where only one instance of an account can exist
 - Make signup interface
 - Make login interface

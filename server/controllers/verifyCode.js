@@ -6,7 +6,10 @@ const { StatusCodes } = require('http-status-codes');
 async function verifyCode(req, res) {
 	const { code } = req.body;
 
-	console.log(code, typeof code);
+	if(!code) {
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 2, message: 'Please provide verification code' });
+	}
+
 	if(typeof code === 'number' || !(/^\d{8}$/gm.test(code))) {
 		return res.status(StatusCodes.UNAUTHORIZED).json({ code: 1, message: 'Code does not match' });
 	}
