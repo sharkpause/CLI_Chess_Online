@@ -113,7 +113,7 @@ async function verifyCodeUI(username, email, password) {
 			if(result === 0) { // Redirect to login page or something
 				console.log('Successfully created account!');
 				return 0;
-			} else if(result === 1) { // Redo the loop or something with an error message
+			} else if(result === 1) {
 				errorMessage = 'Code does not match!';
 			}
 		}
