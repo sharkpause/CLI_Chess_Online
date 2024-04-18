@@ -62,6 +62,8 @@ async function signUpUI() {
 			errorMessage = 'Username must only be composed of alphanumeric characters and underscores and be shorter than 30 characters and longer than 3 characters';
 		} else if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm.test(emailInput)) {
 			errorMessage = 'Invalid email address!';
+		} else if(passwordInput.length > 50) {
+			errorMessage = 'Password must be less than or equal to 50 characters';
 		} else {
 			console.log(chalk.cyan('\nSending email with the verification code...Please wait patiently'));
 			const result = await signUpUser(usernameInput, emailInput, passwordInput);

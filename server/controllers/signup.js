@@ -20,6 +20,18 @@ async function signup(req, res) {
 		return res.status(StatusCodes.BAD_REQUEST).json({ code: 5, message: 'Please provide password' });
 	}
 
+	if(password > 50) {
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 6, message: 'Password must be less than or equal to 50 characters' });
+	}
+	if(!/^[a-zA-Z0-9_]+$/.test(usernameInput) || usernameInput > 30 || usernameInput < 3) {
+		return res.status(StatusCodes.BAD_REQUEST).json({
+			code: 7,
+			message: 'Username must only be composed of alphanumeric characters and underscores and be shorter than 30 characters and longer than 3 characters'
+		});
+	} else if(!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-]+)(\.[a-zA-Z]{2,5}){1,2}$/gm.test(emailInput)) {
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 8, message: 'Invalid email address' });
+	}
+
 	try {
 		if(await Account.findOne({ username })) {
 			return res.status(StatusCodes.CONFLICT).json({ code: 1, message: 'Username already in use' });
