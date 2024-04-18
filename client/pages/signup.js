@@ -35,7 +35,7 @@ async function signUpUI() {
 			const result = await signUpUser(usernameInput, emailInput, passwordInput);
 			
 			if(result.code == 0) {
-				verifyCodeUI(usernameInput, emailInput, passwordInput);
+				await verifyCodeUI(usernameInput, emailInput, passwordInput);
 				break;
 			} else {
 				errorMessage = result.message;
@@ -64,7 +64,7 @@ async function verifyCodeUI(username, email, password) {
 			});
 
 			if(resendCode === true) {
-				signUpUser(username, email, password);
+				await signUpUser(username, email, password);
 			} else {
 				return 1;
 			}
