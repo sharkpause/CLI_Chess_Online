@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { input, password, confirm } from '@inquirer/prompts';
 
+import API_ROUTE from '../.apiroute.js';
+
 async function signUpUI() {
 	let errorMessage = '';
 
@@ -87,7 +89,7 @@ async function verifyCodeUI(username, email, password) {
 
 async function verifyCode(code) {
 	try {
-		const response = await axios.post('http://localhost:3000/api/verify-code', { code });
+		const response = await axios.post(API_ROUTE + '/verify-code', { code });
 
 		return 0;
 	} catch(err) {
@@ -97,7 +99,7 @@ async function verifyCode(code) {
 
 async function signUpUser(username, email, password) {
 	try {
-		const response = await axios.post('http://localhost:3000/api/signup', {
+		const response = await axios.post(API_ROUTE + '/signup', {
 			username, email, password
 		});
 

@@ -1,3 +1,10 @@
+import chalk from 'chalk';
+import axios from 'axios';
+
+import { input, password } from '@inquirer/prompts';
+
+import API_ROUTE from '../.apiroute.js';
+
 async function loginUI() {
 	let errorMessage = '';
 
@@ -22,3 +29,13 @@ async function loginUI() {
 		}
 	}
 }
+
+async function loginUser(username, password) {
+	try {
+		const response = await axios('');
+	} catch(err) {
+		return err.response.data;
+	}
+}
+
+export default loginUI;

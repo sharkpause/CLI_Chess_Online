@@ -7,6 +7,7 @@ import { show, hide } from 'alternate-screen';
 import { select, input, password, Separator } from '@inquirer/prompts';
 
 import signUpUI from './pages/signup.js';
+import loginUI from './pages/login.js';
 
 show();
 
