@@ -14,6 +14,7 @@ show();
 async function mainMenuUI() {
 	while(true) {
 		console.clear();
+		// console.log(); TODO: log cookies and figure out how to store em
 		const mainMenuAnswer = await select({
 			message: `Welcome to ${chalk.cyanBright('CLI Chess Online!')}\n`,
 			choices: [

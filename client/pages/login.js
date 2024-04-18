@@ -32,7 +32,9 @@ async function loginUI() {
 			const result = await loginUser(usernameInput, passwordInput);
 
 			if(result.code === 0) {
-				break;
+				return 0;
+			} else {
+				errorMessage = result.message;
 			}
 		}
 	}
@@ -40,7 +42,7 @@ async function loginUI() {
 
 async function loginUser(username, password) {
 	try {
-		const response = await axios(API_ROUTE + '/login', { username, password });
+		const response = await axios.post(API_ROUTE + '/login', { username, password });
 		
 		return response.data;
 	} catch(err) {

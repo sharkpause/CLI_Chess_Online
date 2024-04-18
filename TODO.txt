@@ -1,5 +1,5 @@
 TODO:
 
+- Figure out how to store cookies and use em safely
 - Make a feature where only one instance of an account can exist
-- Make signup interface
 - Make login interface
