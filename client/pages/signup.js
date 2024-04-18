@@ -66,8 +66,7 @@ async function verifyCodeUI(username, email, password) {
 			if(resendCode === true) {
 				signUpUser(username, email, password);
 			} else {
-				mainMenuUI();
-				break;
+				return 1;
 			}
 		} else {
 			const verificationCodeInput = await input({
@@ -78,7 +77,7 @@ async function verifyCodeUI(username, email, password) {
 
 			if(result.code === 0) { // Redirect to login page or something
 				console.log('Successfully created account!');
-				return 0;
+				break;
 			} else {
 				errorMessage = result.message;
 			}
@@ -91,7 +90,7 @@ async function verifyCode(code) {
 	try {
 		const response = await axios.post(API_ROUTE + '/verify-code', { code });
 
-		return 0;
+		return response.data;
 	} catch(err) {
 		return err.response.data;
 	}
@@ -103,7 +102,7 @@ async function signUpUser(username, email, password) {
 			username, email, password
 		});
 
-		return 0;
+		return response.data;
 	} catch(err) {
 		return err.response.data;
 	}
