@@ -9,16 +9,16 @@ async function login(req, res) {
     const { username, password } = req.body;
 
 	if(!username) {
-		return res.status(StatusCodes.BAD_REQUEST).json({ code: 1, message: 'Please provide username' });
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 2, message: 'Please provide username' });
 	}
 	if(!password) {
-		return res.status(StatusCodes.BAD_REQUEST).json({ code: 2, message: 'Please provide password' });
+		return res.status(StatusCodes.BAD_REQUEST).json({ code: 3, message: 'Please provide password' });
 	}
 
     const account = await Account.findOne({ username });
 
 	if(!account || (await bcrypt.compare(password, account.password)) === false) {
-		return res.status(StatusCodes.UNAUTHORIZED).json({ code: 0, message: 'Either username or password is incorrect' });
+		return res.status(StatusCodes.UNAUTHORIZED).json({ code: 1, message: 'Either username or password is incorrect' });
 	}
 
 	const token = jwt.sign(
@@ -34,7 +34,12 @@ async function login(req, res) {
 		maxAge: 3600000
 	});
 
-    res.status(StatusCodes.OK).json({ message: 'Successfully logged in' });
+	res.cookie('username', username, {
+		sameSite: 'none',
+		secure: true
+	});
+
+    res.status(StatusCodes.OK).json({ code: 0, message: 'Successfully logged in' });
 }
 
 module.exports = login;

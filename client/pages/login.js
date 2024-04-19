@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { input, password } from '@inquirer/prompts';
 
+import parseCookie from '../utils/parseCookie.js';
+
 import API_ROUTE from '../.apiroute.js';
 
 async function loginUI() {
@@ -29,10 +31,17 @@ async function loginUI() {
 		} else {
 			console.log(chalk.cyan('\nLogging in...Please wait patiently'));
 
-			const result = await loginUser(usernameInput, passwordInput);
+			const response = await loginUser(usernameInput, passwordInput);
+			const result = response[0];
+			const cookie = response[1];
 
 			if(result.code === 0) {
-				return 0;
+				const parsedCookie = parseCookie(cookie);
+
+				process.env.COOKIE_JWT = parsedCookie['jwtToken'];
+				process.env.COOKIE_USERNAME = parsedCookie['username'];
+
+				return;
 			} else {
 				errorMessage = result.message;
 			}
@@ -44,7 +53,7 @@ async function loginUser(username, password) {
 	try {
 		const response = await axios.post(API_ROUTE + '/login', { username, password });
 		
-		return response.data;
+		return [response.data, response.headers['set-cookie']];
 	} catch(err) {
 		return err.response.data;
 	}
