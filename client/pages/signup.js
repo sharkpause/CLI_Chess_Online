@@ -10,6 +10,7 @@ async function signUpUI() {
 
 	while(true) {
 		console.clear();
+
 		console.log(chalk.cyanBright('Create a CLI Chess Online account!\n'));
 
 		if(errorMessage !== '') console.log(chalk.red(errorMessage), '\n');
@@ -32,6 +33,7 @@ async function signUpUI() {
 			errorMessage = 'Password must be less than or equal to 50 characters';
 		} else {
 			console.log(chalk.cyan('\nSending email with the verification code...Please wait patiently'));
+
 			const result = await signUpUser(usernameInput, emailInput, passwordInput);
 			
 			if(result.code == 0) {
@@ -66,7 +68,7 @@ async function verifyCodeUI(username, email, password) {
 			if(resendCode === true) {
 				await signUpUser(username, email, password);
 			} else {
-				return 1;
+				return;
 			}
 		} else {
 			const verificationCodeInput = await input({
