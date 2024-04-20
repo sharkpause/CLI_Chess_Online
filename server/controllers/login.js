@@ -34,7 +34,7 @@ async function login(req, res) {
 		maxAge: 3600000
 	});
 
-	res.cookie('username', username, {
+	res.cookie('username', username, { // username cookie is for the client to know who is logged in currently for UI purposes
 		sameSite: 'none',
 		secure: true
 	});

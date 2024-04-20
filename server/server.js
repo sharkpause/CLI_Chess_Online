@@ -24,7 +24,7 @@ app.use('/api/login', login);
 app.use('/api/verify-code', verifyCode);
 app.use('/api/retrieve-database', retrieveDatabase);
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000; // process.env.PORT is there in case the service has reserved a port already, 3000 is just default if there ain't
 
 async function start() {
 	try {

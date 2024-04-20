@@ -10,8 +10,8 @@ async function verifyCode(req, res) {
 		return res.status(StatusCodes.BAD_REQUEST).json({ code: 2, message: 'Please provide verification code' });
 	}
 
-	if(typeof code === 'number' || !(/^\d{8}$/gm.test(code))) {
-		return res.status(StatusCodes.UNAUTHORIZED).json({ code: 1, message: 'Code does not match' });
+	if(typeof code === 'number' || !(/^\d{8}$/gm.test(code))) { // check if type number cuz somebody might try to hack the verify method
+		return res.status(StatusCodes.UNAUTHORIZED).json({ code: 1, message: 'Code does not match' }); // Regex tests if code is 8 digits and only numbers
 	}
 
 	const userData = await VerifyCode.findOne({ code });

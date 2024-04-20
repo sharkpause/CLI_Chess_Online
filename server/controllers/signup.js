@@ -41,13 +41,12 @@ async function signup(req, res) {
 		}
 
 		let emailCode;
-
 		const searchedCode = await VerifyCode.findOne({ email });
 		if(!searchedCode) {
 			emailCode = Math.floor(10000000 + Math.random() * 90000000);
 			await VerifyCode.create({ code: emailCode, username, email, password });
 		} else {
-			emailCode = searchedCode.code;
+			emailCode = searchedCode.code; // Just use an existing code (if exists) instead of generating a new one and storing it, saving time and space
 		}
 
 		const transporter = nodemailer.createTransport({
