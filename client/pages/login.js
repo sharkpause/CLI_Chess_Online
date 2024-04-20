@@ -35,7 +35,7 @@ async function loginUI() {
 			const result = response[0];
 			const cookie = response[1];
 
-			if(result.code === 0) {
+			if(result.code === 0) { // Storing cookies
 				const parsedCookie = parseCookie(cookie);
 
 				process.env.COOKIE_JWT = parsedCookie['jwtToken'];
@@ -53,7 +53,7 @@ async function loginUser(username, password) {
 	try {
 		const response = await axios.post(API_ROUTE + '/login', { username, password });
 		
-		return [response.data, response.headers['set-cookie']];
+		return [response.data, response.headers['set-cookie']]; // response.data is sent for checking result.code
 	} catch(err) {
 		return err.response.data;
 	}

@@ -38,7 +38,7 @@ async function signUpUI() {
 			
 			if(result.code == 0) {
 				await verifyCodeUI(usernameInput, emailInput, passwordInput);
-				break;
+				break; // break to send user back to main menu after verify
 			} else {
 				errorMessage = result.message;
 			}
@@ -77,8 +77,7 @@ async function verifyCodeUI(username, email, password) {
 
 			const result = await verifyCode(verificationCodeInput);
 
-			if(result.code === 0) { // Redirect to login page or something
-				console.log('Successfully created account!');
+			if(result.code === 0) {
 				break;
 			} else {
 				errorMessage = result.message;
