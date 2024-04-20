@@ -9,6 +9,13 @@ import { select, input, password, Separator } from '@inquirer/prompts';
 import signUpUI from './pages/signup.js';
 import loginUI from './pages/login.js'
 
+try {
+	await axios.get(API_URL + '/ping');
+} catch(err) {
+	console.log(chalk.red('Server not up yet, please try again later'));
+	process.exit(0);
+}
+
 show();
 
 async function mainMenuUI() {

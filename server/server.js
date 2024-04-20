@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 
+const { StatusCodes } = require('http-status-codes');
+
 const connect = require('./db/connect');
 
 app.use([
@@ -23,6 +25,10 @@ app.use('/api/signup', signup);
 app.use('/api/login', login);
 app.use('/api/verify-code', verifyCode);
 app.use('/api/retrieve-database', retrieveDatabase);
+
+app.get('/api/ping', (req, res) => {
+	res.status(StatusCodes.OK).json({ code: 0 });
+});
 
 const PORT = process.env.PORT || 3000; // process.env.PORT is there in case the service has reserved a port already, 3000 is just default if there ain't
 
