@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const { StatusCodes } = require('http-status-codes');
 
 const Account = require('../models/accounts');
+const Online = require('../models/online');
 
 async function login(req, res) {
     const { username, password } = req.body;
@@ -14,6 +15,8 @@ async function login(req, res) {
 	if(!password) {
 		return res.status(StatusCodes.BAD_REQUEST).json({ code: 3, message: 'Please provide password' });
 	}
+
+	console.log(req.cookies);
 
     const account = await Account.findOne({ username });
 

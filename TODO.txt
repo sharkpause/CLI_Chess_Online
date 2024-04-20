@@ -1,4 +1,4 @@
 TODO:
 
 - Make a feature where only one instance of an account can exist
-- Make login interface
+- Move password encryption code to account model
