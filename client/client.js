@@ -9,6 +9,8 @@ import { select, input, password, Separator } from '@inquirer/prompts';
 import signUpUI from './pages/signup.js';
 import loginUI from './pages/login.js'
 
+import API_URL from './.apiroute.js';
+
 try {
 	await axios.get(API_URL + '/ping');
 } catch(err) {
