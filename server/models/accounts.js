@@ -33,4 +33,20 @@ const AccountSchema = new mongoose.Schema({
 	}
 });
 
+AccountSchema.pre('save', async function(next) {
+	const user = this;
+
+	if(!user.isModified('password')) next();
+
+	try { 
+		const salt = await bcrypt.genSalt(10);
+		const hash = await bcrypt.hash(user.password, salt);
+
+		user.password = hash;
+	} catch(err) {
+		return next(err);
+	}
+
+});
+
 module.exports = mongoose.model('Account', AccountSchema, 'accounts');
