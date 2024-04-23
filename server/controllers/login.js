@@ -16,8 +16,6 @@ async function login(req, res) {
 		return res.status(StatusCodes.BAD_REQUEST).json({ code: 3, message: 'Please provide password' });
 	}
 
-	console.log(req.cookies);
-
     const account = await Account.findOne({ username });
 
 	if(!account || (await bcrypt.compare(password, account.password)) === false) {
@@ -29,6 +27,16 @@ async function login(req, res) {
 		process.env.JWT_SECRET,
 		{ expiresIn: '1d' }
 	);
+
+	const onlineAccount = Online.findOne({ username });
+
+	if(onlineAccount.token !== undefined) {
+		if(onlineAccount.token !== token) {
+			return res.status(StatusCodes.CONFLICT).json({ code: 4, message: 'User already logged in' });
+		}
+	}
+
+	Online.create({ username, token });
 
 	res.cookie('jwtToken', token, {
 		httpOnly: true,

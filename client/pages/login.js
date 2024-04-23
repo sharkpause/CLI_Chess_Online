@@ -55,7 +55,7 @@ async function loginUser(username, password) {
 		
 		return [response.data, response.headers['set-cookie']]; // response.data is sent for checking result.code
 	} catch(err) {
-		return err.response.data;
+		return [err.response.data];
 	}
 }
 

@@ -1,13 +1,16 @@
 const mongoose = require('mongoose');
 
 const OnlineSchema = new mongoose.Schema({
+	username: {
+		type: String
+	},
 	token: {
 		type: String
 	},
 	createdAt: {
 		type: Date,
 		default: Date.now,
-		expires: 300
+		expires: 3600000
 	}
 });
 
