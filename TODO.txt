@@ -1,4 +1,3 @@
 TODO:
 
 - Make a feature where only one instance of an account can exist
-- Move password encryption code to account model
