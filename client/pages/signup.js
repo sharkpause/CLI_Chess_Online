@@ -3,6 +3,8 @@ import axios from 'axios';
 
 import { input, password, confirm } from '@inquirer/prompts';
 
+import askRetry from '../utils/askRetry.js';
+
 import API_ROUTE from '../.apiroute.js';
 
 async function signUpUI() {
@@ -13,7 +15,11 @@ async function signUpUI() {
 
 		console.log(chalk.cyanBright('Create a CLI Chess Online account!\n'));
 
-		if(errorMessage !== '') console.log(chalk.red(errorMessage), '\n');
+		if(errorMessage !== '') {
+			console.log(chalk.red(errorMessage), '\n');
+
+			if(await askRetry() === false) return;
+		}
 
 		const usernameInput = await input({
 			message: 'Username: '
@@ -52,7 +58,11 @@ async function verifyCodeUI(username, email, password) {
 	while(true) {
 		console.clear();
 
-		if(errorMessage) console.log(chalk.red(errorMessage) + '\n');
+		if(errorMessage) {
+			console.log(chalk.red(errorMessage) + '\n');
+
+			if(await askRetry() === false) return;
+		}
 		
 		const gotCode = await confirm({
 			message: chalk.cyan('Have you received the email with the code?')
