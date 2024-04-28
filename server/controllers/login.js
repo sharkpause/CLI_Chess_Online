@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const { StatusCodes } = require('http-status-codes');
 
 const Account = require('../models/accounts');
-const Online = require('../models/online');
 
 async function login(req, res) {
     const { username, password } = req.body;
@@ -27,16 +26,6 @@ async function login(req, res) {
 		process.env.JWT_SECRET,
 		{ expiresIn: '1d' }
 	);
-
-	const onlineAccount = Online.findOne({ username });
-
-	if(onlineAccount.token !== undefined) {
-		if(onlineAccount.token !== token) {
-			return res.status(StatusCodes.CONFLICT).json({ code: 4, message: 'User already logged in' });
-		}
-	}
-
-	Online.create({ username, token });
 
 	res.cookie('jwtToken', token, {
 		httpOnly: true,
