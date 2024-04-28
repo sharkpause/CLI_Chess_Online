@@ -1,5 +1,5 @@
-const { show, hide } = require("alternate-screen")
-const readline = require("readline-sync");
+import { show, hide } from 'alternate-screen';
+import readline from 'readline-sync';
 
 const RESET = "\x1b[0m";
 const RED = "\x1b[31m";
@@ -50,14 +50,14 @@ const COORDINATES = {
  */
 
 let board = [
- 	[10, 8, 9, 11, 12, 9, 8, 10]
+ 	[10, 8, 9, 11, 12, 9, 8, 10],
  	[7, 7, 7, 7, 7, 7, 7, 7],
  	['', '', '', '', '', '', '', ''],
  	['', '', '', '', '', '', '', ''],
  	['', '', '', '', '', '', '', ''],
 	['', '', '', '', '', '', '', ''],
- 	[4, 2, 3, 5, 6, 3, 2, 4],
 	[1, 1, 1, 1, 1, 1, 1, 1],
+ 	[4, 2, 3, 5, 6, 3, 2, 4]
 ];
 
 function pieceCharacter(square) {
@@ -97,39 +97,7 @@ function displayBoard(board) {
 	for(let rank = 0; rank < board.length; ++rank) {
 		process.stdout.write(8-rank + "\t");
 		for(let file = 0; file < board[rank].length; ++file) {
-			square = board[rank][file];
-			squareCoordinate = fileCoordinates[file] + rankCoordinates[rank];
-			isWhite = rank % 2 === file % 2;
-
-			const pieceSquare = pieceCharacter(square);
-
-			if(square !== '') {
-				if(square.includes(RED)) {
-					if(highlightedSquares.includes(squareCoordinate)) {
-						process.stdout.write(BG_YELLOW + ' ' + pieceSquare + WHITE + ' ');
-					} else if(isWhite) {
-						process.stdout.write(BG_WHITE + ' ' + pieceSquare + WHITE + ' ');
-					} else {
-						process.stdout.write(BG_BLACK + ' ' + pieceSquare + WHITE + ' ');
-					}
-				} else {
-					if(highlightedSquares.includes(squareCoordinate)) {
-						process.stdout.write(BG_YELLOW + ' ' + BLUE + pieceSquare + WHITE + ' ');
-					} else if(isWhite) {
-						process.stdout.write(BG_WHITE + ' ' + BLUE + pieceSquare + WHITE + ' ');
-					} else
-						process.stdout.write(BG_BLACK + BLUE + ' ' + pieceSquare + WHITE + ' ');
-					}
-			} else {
-				if(highlightedSquares.includes(squareCoordinate)) {
-					process.stdout.write(BG_YELLOW + ' - ');
-				} else if(isWhite) {
-					process.stdout.write(BG_WHITE + ' - ');
-				} else {
-					process.stdout.write(BG_BLACK + ' - ');
-				}
-			}
-			process.stdout.write(RESET);
+			process.stdout.write(' ' + pieceCharacter(board[rank][file]) + ' ');
 		}
 
 		console.log();
@@ -137,4 +105,4 @@ function displayBoard(board) {
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
 
-displayBoard();
+displayBoard(board);
