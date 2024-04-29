@@ -63,31 +63,31 @@ let board = [
 function pieceCharacter(square) {
 	switch(square) {
 		case 4:
-			return String.fromCharCode(0x265c);
+			return BLUE + String.fromCharCode(0x265c) + WHITE;
 		case 10:
 			return RED + String.fromCharCode(0x265c) + WHITE;
 		case 2:
-			return String.fromCharCode(0x265e);
+			return BLUE + String.fromCharCode(0x265e) + WHITE;
 		case 8:
 			return RED + String.fromCharCode(0x265e) + WHITE;
 		case 3:
-			return String.fromCharCode(0x265d);
+			return BLUE + String.fromCharCode(0x265d) + WHITE;
 		case 9:
 			return RED + String.fromCharCode(0x265d) + WHITE;
 		case 6:
-			return String.fromCharCode(0x265a);
+			return BLUE + String.fromCharCode(0x265a) + WHITE;
 		case 12:
 			return RED + String.fromCharCode(0x265a) + WHITE;
 		case 5:
-			return String.fromCharCode(0x265b);
+			return BLUE + String.fromCharCode(0x265b) + WHITE;
 		case 11:
 			return RED + String.fromCharCode(0x265b) + WHITE;
 		case 1:
-			return String.fromCharCode(0x265f);
+			return BLUE + String.fromCharCode(0x265f) + WHITE;
 		case 7:
 			return RED + String.fromCharCode(0x265f) + WHITE;
 		default: 
-			return square;
+			return ' ';
 	}
 }
 
@@ -97,7 +97,12 @@ function displayBoard(board) {
 	for(let rank = 0; rank < board.length; ++rank) {
 		process.stdout.write(8-rank + "\t");
 		for(let file = 0; file < board[rank].length; ++file) {
-			process.stdout.write(' ' + pieceCharacter(board[rank][file]) + ' ');
+			if((rank + file) % 2 === 0) {
+				process.stdout.write(BG_WHITE + ' ' + pieceCharacter(board[rank][file]) + ' ');
+			} else {
+				process.stdout.write(BG_BLACK + ' ' + pieceCharacter(board[rank][file]) + ' ');
+			}
+			process.stdout.write(RESET);
 		}
 
 		console.log();
