@@ -1,37 +1,19 @@
 import { show, hide } from 'alternate-screen';
 import readline from 'readline-sync';
 
-const RESET = "\x1b[0m";
-const RED = "\x1b[31m";
-const BLUE = "\x1b[34m";
-const WHITE = "\x1b[37m";
-const GREEN = "\x1b[32m";
-const BG_BLACK = "\x1b[40m";
-const BG_WHITE = "\x1b[47m";
-const BG_YELLOW = "\x1b[43m";
-
-const FILE_COORDINATES = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'];
-
-const RANK_COORDINATES = [8, 7, 6, 5, 4, 3, 2, 1];
-
-const COORDINATES = {
-	'a': 0,
-	'b': 1,
-	'c': 2,
-	'd': 3,
-	'e': 4,
-	'f': 5,
-	'g': 6,
-	'h': 7,
-	1: 7,
-	2: 6,
-	3: 5,
-	4: 4,
-	5: 3,
-	6: 2,
-	7: 1,
-	8: 0
-}
+import {
+	RESET,
+	RED,
+	BLUE,
+	WHITE,
+	GREEN,
+	BG_BLACK,
+	BG_WHITE,
+	BG_YELLOW,
+	FILE_COORDINATES,
+	RANK_COORDINATES,
+	COORDINATES
+} from './chess_utils/constants.js';
 
 /*
  * 0 = Empty
