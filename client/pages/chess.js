@@ -29,17 +29,19 @@ import {
  * 10 = Black Rook
  * 11 = Black Queen
  * 12 = Black King
+ * 13 = White King (unmoved)
+ * 14 = Black King (unmoved)
  */
 
 let board = [
- 	[10, 8, 9, 11, 12, 9, 8, 10],
+ 	[10, 8, 9, 11, 14, 9, 8, 10],
  	[7, 7, 7, 7, 7, 7, 7, 7],
  	['', '', '', '', '', '', '', ''],
  	['', '', '', '', '', '', '', ''],
  	['', '', '', '', '', '', '', ''],
 	['', '', '', '', '', '', '', ''],
 	[1, 1, 1, 1, 1, 1, 1, 1],
- 	[4, 2, 3, 5, 6, 3, 2, 4]
+ 	[4, 2, 3, 5, 13, 3, 2, 4]
 ];
 
 function pieceCharacter(square) {
@@ -56,8 +58,10 @@ function pieceCharacter(square) {
 			return BLUE + String.fromCharCode(0x265d) + WHITE;
 		case 9:
 			return RED + String.fromCharCode(0x265d) + WHITE;
+		case 13:
 		case 6:
 			return BLUE + String.fromCharCode(0x265a) + WHITE;
+		case 14:
 		case 12:
 			return RED + String.fromCharCode(0x265a) + WHITE;
 		case 5:
