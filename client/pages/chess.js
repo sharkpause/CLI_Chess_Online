@@ -36,10 +36,10 @@ import {
 let board = [
  	[10, 8, 9, 11, 14, 9, 8, 10],
  	[7, 7, 7, 7, 7, 7, 7, 7],
- 	['', '', '', '', '', '', '', ''],
- 	['', '', '', '', '', '', '', ''],
- 	['', '', '', '', '', '', '', ''],
-	['', '', '', '', '', '', '', ''],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
 	[1, 1, 1, 1, 1, 1, 1, 1],
  	[4, 2, 3, 5, 13, 3, 2, 4]
 ];
@@ -95,5 +95,19 @@ function displayBoard(board) {
 	}
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
+
+function move(before, after, board) {
+	const beforeFile = COORDINATES[before[0]];
+	const beforeRank = COORDINATES[before[1]];
+
+	const afterFile = COORDINATES[after[0]];
+	const afterRank = COORDINATES[after[1]];
+
+	board[beforeRank][beforeFile] = '';
+}
+
+displayBoard(board);
+
+move('e2', 'e4', board);
 
 displayBoard(board);
