@@ -15,6 +15,17 @@ import {
 	COORDINATES
 } from './chess_utils/constants.js';
 
+let board = [
+ 	[10, 8, 9, 11, 14, 9, 8, 10],
+ 	[7, 7, 7, 7, 7, 7, 7, 7],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[1, 1, 1, 1, 1, 1, 1, 1],
+ 	[4, 2, 3, 5, 13, 3, 2, 4]
+];
+
 /*
  * 0 = Empty
  * 1 = White Pawn
@@ -32,17 +43,6 @@ import {
  * 13 = White King (unmoved)
  * 14 = Black King (unmoved)
  */
-
-let board = [
- 	[10, 8, 9, 11, 14, 9, 8, 10],
- 	[7, 7, 7, 7, 7, 7, 7, 7],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[1, 1, 1, 1, 1, 1, 1, 1],
- 	[4, 2, 3, 5, 13, 3, 2, 4]
-];
 
 function pieceCharacter(square) {
 	switch(square) {
@@ -81,14 +81,15 @@ function displayBoard(board) {
 	let square, squareCoordinate, isWhite;
 
 	for(let rank = 0; rank < board.length; ++rank) {
-		process.stdout.write(8-rank + "\t");
+		process.stdout.write(8-rank + "\t"); // Writes the rank
+
 		for(let file = 0; file < board[rank].length; ++file) {
 			if((rank + file) % 2 === 0) {
 				process.stdout.write(BG_WHITE + ' ' + pieceCharacter(board[rank][file]) + ' ');
 			} else {
 				process.stdout.write(BG_BLACK + ' ' + pieceCharacter(board[rank][file]) + ' ');
 			}
-			process.stdout.write(RESET);
+			process.stdout.write(RESET); // Resets the colors
 		}
 
 		console.log();
