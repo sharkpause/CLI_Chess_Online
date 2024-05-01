@@ -1,5 +1,3 @@
 TODO:
 
-- Crate a move generator function on another file
-- Create a move validation function on another file
 - Make a feature where only one instance of an account can exist using a web socket only when the user is establishing a chess game
