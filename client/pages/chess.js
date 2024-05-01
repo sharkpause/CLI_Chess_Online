@@ -15,6 +15,8 @@ import {
 	COORDINATES
 } from './chess_utils/constants.js';
 
+import validateMove from './chess_utils/validateMove.js';
+
 let board = [
  	[10, 8, 9, 11, 14, 9, 8, 10],
  	[7, 7, 7, 7, 7, 7, 7, 7],
@@ -98,6 +100,8 @@ function displayBoard(board) {
 }
 
 function move(before, after, board) {
+	if(!validateMove(before, after, board)) return 1;
+
 	const beforeFile = COORDINATES[before[0]];
 	const beforeRank = COORDINATES[before[1]];
 
@@ -110,13 +114,6 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
-displayBoard(board);
-
-move('e2', 'e4', board);
-move('d7', 'd5', board);
-
-displayBoard(board);
-
-move('e4', 'd5', board);
+validateMove('e2', 'e5', board);
 
 displayBoard(board);
