@@ -114,6 +114,6 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
-validateMove('e2', 'e5', board);
+console.log(validateMove('b1', 'a3', board));
 
 displayBoard(board);

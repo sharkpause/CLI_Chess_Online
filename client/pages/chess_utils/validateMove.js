@@ -7,13 +7,14 @@ export default function validateMove(before, after, board) {
 	switch(movingPiece) {
 		case 1:
 			return validatePawn(before, after, board);
+		case 2:
+			return generateMoves(before, board);
 	}
 }
 
 function validatePawn(before, after, board) {
 	const moves = generateMoves(before, board);
 
-	// check if after is in moves
-
+	if(moves.indexOf(after) > -1) return true;
 	return false;
 }
