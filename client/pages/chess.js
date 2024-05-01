@@ -103,11 +103,19 @@ function move(before, after, board) {
 	const afterFile = COORDINATES[after[0]];
 	const afterRank = COORDINATES[after[1]];
 
-	board[beforeRank][beforeFile] = '';
+	const pieceToMove = board[beforeRank][beforeFile];
+
+	board[beforeRank][beforeFile] = 0;
+	board[afterRank][afterFile] = pieceToMove;
 }
 
 displayBoard(board);
 
 move('e2', 'e4', board);
+move('d7', 'd5', board);
+
+displayBoard(board);
+
+move('e4', 'd5', board);
 
 displayBoard(board);
