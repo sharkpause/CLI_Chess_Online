@@ -31,26 +31,33 @@ function generateWhiteKnightMoves(square, board) {
 		// Check if two squares up and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 1] === 0) {
+	if(board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] === 0) {
 		// Check if two squares up and one square right is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] === 0) {
 		// Check if two squares down and one square left is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] === 0) {
 		// Check if two squares down and one square right is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] === 0) {
 		// Check if two squares left and one square left is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] === 0) {
 		// Check if two squares left and one square right is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] === 0) {
 		// Check if two squares right and one square left is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
-	if(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] === 0) {
 		// Check if two squares right and one square right is empty
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
 	}
 
 	return moves;
