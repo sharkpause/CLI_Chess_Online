@@ -14,8 +14,12 @@ export default function generateMoves(square, board) {
 function generateWhiteBishopMoves(square, board) {
 	const moves = [];
 
-	for(let i = 0; i < board.length; ++i) {
-		;
+	for(let i = 1; i < board.length; ++i) {
+		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]-i >= 0 && board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i] === 0) {
+			moves.push(FILE_COORDINATES[[square[0]]-i] + RANK_COORDINATES[[square[1]]-1]);
+		} else {
+			break;
+		}
 	}
 
 	return moves;
