@@ -3,15 +3,15 @@ import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js'
 export default function generateMoves(square, board) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {
 		case 1:
-			return generateWhitePawnMoves(square, board);
+			return generatePawnMoves(square, board);
 		case 2:
-			return generateWhiteKnightMoves(square, board);
+			return generateKnightMoves(square, board);
 		case 3:
-			return generateWhiteBishopMoves(square, board);
+			return generateBishopMoves(square, board);
 	}
 }
 
-function generateWhiteBishopMoves(square, board) {
+function generateBishopMoves(square, board) {
 	const moves = [];
 
 	for(let i = 1; i < board.length; ++i) { // Top-left
@@ -51,7 +51,7 @@ function generateWhiteBishopMoves(square, board) {
 	return moves;
 }
 
-function generateWhitePawnMoves(square, board) {
+function generatePawnMoves(square, board) {
 	const moves = [];
 
 	if(COORDINATES[square[1]] - 2 > 0 && board[COORDINATES[square[1]] - 2][COORDINATES[square[0]]] === 0) {
@@ -66,7 +66,7 @@ function generateWhitePawnMoves(square, board) {
 	return moves;
 }
 
-function generateWhiteKnightMoves(square, board) {
+function generateKnightMoves(square, board) {
 	const moves = [];
 
 	if(COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0 && board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0) {

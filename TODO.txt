@@ -1,3 +1,7 @@
 TODO:
 
+- Work on rook moves
+- Work on queen moves
+- Work on king moves
+- Work on move highlighting on the board
 - Make a feature where only one instance of an account can exist using a web socket only when the user is establishing a chess game
