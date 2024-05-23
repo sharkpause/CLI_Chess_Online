@@ -17,8 +17,26 @@ function generateRookMoves(square, board) {
 	const moves = [];
 
 	for(let i = 1; i < board.length; ++i) { // Left
-		if(COORDINATES[square[0]-i] >= 0 && board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] === 0) {
+		if(COORDINATES[square[0]]-i >= 0 && board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] === 0) {
 			moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
+		}
+	}
+
+	for(let i = 1; i < board.length; ++i) { // Top
+		if(COORDINATES[square[1]]-i >= 0 && board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] === 0) {
+			moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
+		}
+	}
+
+	for(let i = 1; i < board.length; ++i) { // Right
+		if(COORDINATES[square[0]]+i < 8 && board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] === 0) {
+			moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
+		}
+	}
+
+	for(let i = 1; i < board.length; ++i) { // Bottom
+		if(COORDINATES[square[1]]+i < 8 && board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] === 0) {
+			moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 		}
 	}
 
@@ -36,7 +54,7 @@ function generateBishopMoves(square, board) {
 		}
 	}
 
-	for(let i = 1; i < board.length; ++i) {
+	for(let i = 1; i < board.length; ++i) { // Bottom-right
 		if(COORDINATES[square[0]]+i < 8 && COORDINATES[square[1]]+i < 8 && board[COORDINATES[square[1]]+i][COORDINATES[square[0]]+i] === 0) {
 			moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 		} else {
@@ -44,7 +62,7 @@ function generateBishopMoves(square, board) {
 		}
 	}
 
-	for(let i = 1; i < board.length; ++i) {
+	for(let i = 1; i < board.length; ++i) { // Top-right
 		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]+i < 8 && board[COORDINATES[square[1]]+i][COORDINATES[square[0]]-i] === 0) {
 			moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 		} else {
@@ -52,7 +70,7 @@ function generateBishopMoves(square, board) {
 		}
 	}
 
-	for(let i = 1; i < board.length; ++i) {
+	for(let i = 1; i < board.length; ++i) { // Bottom-left
 		if(COORDINATES[square[0]]+i < 8 && COORDINATES[square[1]]-i >= 0 && board[COORDINATES[square[1]]-i][COORDINATES[square[0]]+i] === 0) {
 			moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
 		} else {
