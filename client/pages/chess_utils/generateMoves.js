@@ -16,11 +16,13 @@ function generateWhiteBishopMoves(square, board) {
 
 	for(let i = 1; i < board.length; ++i) {
 		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]-i >= 0 && board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i] === 0) {
-			moves.push(FILE_COORDINATES[[square[0]]-i] + RANK_COORDINATES[[square[1]]-1]);
+			moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
 		} else {
 			break;
 		}
 	}
+
+	console.log(moves);
 
 	return moves;
 }

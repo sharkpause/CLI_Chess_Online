@@ -16,6 +16,7 @@ import {
 } from './chess_utils/constants.js';
 
 import validateMove from './chess_utils/validateMove.js';
+import movePiece from './chess_utils/movePiece.js';
 
 let board = [
  	[10, 8, 9, 11, 14, 9, 8, 10],
@@ -114,9 +115,12 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
-console.log(validateMove('e2', 'e4', board));
-console.log(validateMove('f1', 'c4', board));
-
 displayBoard(board);
+
+movePiece('e2', 'e4', board);
+
+console.log(validateMove('f1', 'e2', board));
+
+movePiece('f1', 'e2', board);
 
 displayBoard(board);
