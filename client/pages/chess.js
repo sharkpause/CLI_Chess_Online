@@ -116,11 +116,3 @@ function move(before, after, board) {
 }
 
 displayBoard(board);
-
-movePiece('e2', 'e4', board);
-
-console.log(validateMove('f1', 'e2', board));
-
-movePiece('f1', 'e2', board);
-
-displayBoard(board);
