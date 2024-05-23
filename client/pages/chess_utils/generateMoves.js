@@ -8,7 +8,21 @@ export default function generateMoves(square, board) {
 			return generateKnightMoves(square, board);
 		case 3:
 			return generateBishopMoves(square, board);
+		case 4:
+			return generateRookMoves(square, board);
 	}
+}
+
+function generateRookMoves(square, board) {
+	const moves = [];
+
+	for(let i = 1; i < board.length; ++i) { // Left
+		if(COORDINATES[square[0]-i] >= 0 && board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] === 0) {
+			moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
+		}
+	}
+
+	return moves;
 }
 
 function generateBishopMoves(square, board) {

@@ -17,16 +17,28 @@ import {
 
 import validateMove from './chess_utils/validateMove.js';
 import movePiece from './chess_utils/movePiece.js';
+import generateMoves from './chess_utils/generateMoves.js';
+
+//let board = [
+// 	[10, 8, 9, 11, 14, 9, 8, 10],
+// 	[7, 7, 7, 7, 7, 7, 7, 7],
+//	[0, 0, 0, 0, 0, 0, 0, 0],
+//	[0, 0, 0, 0, 0, 0, 0, 0],
+//	[0, 0, 0, 0, 0, 0, 0, 0],
+//	[0, 0, 0, 0, 0, 0, 0, 0],
+//	[1, 1, 1, 1, 1, 1, 1, 1],
+// 	[4, 2, 3, 5, 13, 3, 2, 4]
+//];
 
 let board = [
- 	[10, 8, 9, 11, 14, 9, 8, 10],
- 	[7, 7, 7, 7, 7, 7, 7, 7],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 3, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[1, 1, 1, 1, 1, 1, 1, 1],
- 	[4, 2, 3, 5, 13, 3, 2, 4]
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
 /*
@@ -81,13 +93,31 @@ function pieceCharacter(square) {
 }
 
 function displayBoard(board) {
-	let square, squareCoordinate, isWhite;
-
 	for(let rank = 0; rank < board.length; ++rank) {
 		process.stdout.write(8-rank + "\t"); // Writes the rank
 
 		for(let file = 0; file < board[rank].length; ++file) {
 			if((rank + file) % 2 === 0) {
+				process.stdout.write(BG_WHITE + ' ' + pieceCharacter(board[rank][file]) + ' ');
+			} else {
+				process.stdout.write(BG_BLACK + ' ' + pieceCharacter(board[rank][file]) + ' ');
+			}
+			process.stdout.write(RESET); // Resets the colors
+		}
+
+		console.log();
+	}
+	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
+}
+
+function displayHighlightedBoard(board, squares) {
+	for(let rank = 0; rank < board.length; ++rank) {
+		process.stdout.write(8-rank + "\t"); // Writes the rank
+
+		for(let file = 0; file < board[rank].length; ++file) {
+			if(squares.indexOf(FILE_COORDINATES[file] + RANK_COORDINATES[rank]) > -1) {
+				process.stdout.write(BG_YELLOW + ' ' + pieceCharacter(board[rank][file]) + ' ');
+			} else if((rank + file) % 2 === 0) {
 				process.stdout.write(BG_WHITE + ' ' + pieceCharacter(board[rank][file]) + ' ');
 			} else {
 				process.stdout.write(BG_BLACK + ' ' + pieceCharacter(board[rank][file]) + ' ');
@@ -116,3 +146,8 @@ function move(before, after, board) {
 }
 
 displayBoard(board);
+
+const squares = generateMoves('d5', board);
+
+displayBoard(board);
+displayHighlightedBoard(board, squares);
