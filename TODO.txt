@@ -1,6 +1,6 @@
 TODO:
 
-- Work on rook moves
+- Modify the capturing checker to a separate conditional so it can break
 - Work on queen moves
 - Work on king moves
 - Make pieceCharacter into an array instead of a function

@@ -31,13 +31,13 @@ import generateMoves from './chess_utils/generateMoves.js';
 //];
 
 let board = [
+	[0, 0, 0, 0, 0, 0, 8, 0],
+	[0, 0, 11, 7, 0, 8, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
+	[9, 0, 0, 5, 0, 5, 0, 12],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 4, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 1, 0, 7, 0, 7, 0, 0],
+	[7, 0, 0, 7, 0, 0, 1, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
@@ -145,9 +145,6 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
-displayBoard(board);
-
 const squares = generateMoves('d5', board);
 
-displayBoard(board);
 displayHighlightedBoard(board, squares);
