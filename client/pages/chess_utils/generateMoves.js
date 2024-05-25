@@ -139,13 +139,21 @@ function generateBishopMoves(square, board) {
 function generatePawnMoves(square, board) {
 	const moves = [];
 
-	if(COORDINATES[square[1]] - 2 > 0 && board[COORDINATES[square[1]] - 2][COORDINATES[square[0]]] === 0) {
+	if(COORDINATES[square[1]]-2 > 0 && board[COORDINATES[square[1]]-2][COORDINATES[square[0]]] === 0) {
 		// Checks if two squares in front of the pawn is empty and not outside the board
-		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
+		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-2]);
 	}
-	if(COORDINATES[square[1]] - 1 > 0 && board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
+	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0) {
 		// Checks if one square in front of the pawn is empty
-		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
+		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
+	}
+	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 6) {
+		// Checks if one square in front of the pawn and to the left has an enemy piece
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
+	}
+	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 6) {
+		// Checks if one square in front of the pawn and to the right has an enemy piece
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
 
 	return moves;
