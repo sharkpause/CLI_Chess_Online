@@ -139,11 +139,11 @@ function generateBishopMoves(square, board) {
 function generatePawnMoves(square, board) {
 	const moves = [];
 
-	if((COORDINATES[square[1]] - 2 > 0 && board[COORDINATES[square[1]] - 2][COORDINATES[square[0]]] === 0) || (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]]] > 6)) {
+	if(COORDINATES[square[1]] - 2 > 0 && board[COORDINATES[square[1]] - 2][COORDINATES[square[0]]] === 0) {
 		// Checks if two squares in front of the pawn is empty and not outside the board
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if((COORDINATES[square[1]] - 1 > 0 && board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) || (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] > 6)) {
+	if(COORDINATES[square[1]] - 1 > 0 && board[COORDINATES[square[1]] - 1][COORDINATES[square[0]]] === 0) {
 		// Checks if one square in front of the pawn is empty
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
