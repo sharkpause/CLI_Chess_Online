@@ -59,38 +59,23 @@ let board = [
  * 14 = Black King (unmoved)
  */
 
-function pieceCharacter(square) {
-	switch(square) {
-		case 4:
-			return BLUE + String.fromCharCode(0x265c) + WHITE;
-		case 10:
-			return RED + String.fromCharCode(0x265c) + WHITE;
-		case 2:
-			return BLUE + String.fromCharCode(0x265e) + WHITE;
-		case 8:
-			return RED + String.fromCharCode(0x265e) + WHITE;
-		case 3:
-			return BLUE + String.fromCharCode(0x265d) + WHITE;
-		case 9:
-			return RED + String.fromCharCode(0x265d) + WHITE;
-		case 13:
-		case 6:
-			return BLUE + String.fromCharCode(0x265a) + WHITE;
-		case 14:
-		case 12:
-			return RED + String.fromCharCode(0x265a) + WHITE;
-		case 5:
-			return BLUE + String.fromCharCode(0x265b) + WHITE;
-		case 11:
-			return RED + String.fromCharCode(0x265b) + WHITE;
-		case 1:
-			return BLUE + String.fromCharCode(0x265f) + WHITE;
-		case 7:
-			return RED + String.fromCharCode(0x265f) + WHITE;
-		default: 
-			return ' ';
-	}
-}
+const PIECE_CHARACTER = [
+	' ',
+	BLUE + String.fromCharCode(0x265f) + WHITE,
+	BLUE + String.fromCharCode(0x265e) + WHITE,
+	BLUE + String.fromCharCode(0x265d) + WHITE,
+	BLUE + String.fromCharCode(0x265c) + WHITE,
+	BLUE + String.fromCharCode(0x265b) + WHITE,
+	BLUE + String.fromCharCode(0x265a) + WHITE,
+	RED + String.fromCharCode(0x265f) + WHITE,
+	RED + String.fromCharCode(0x265e) + WHITE,
+	RED + String.fromCharCode(0x265d) + WHITE,
+	RED + String.fromCharCode(0x265c) + WHITE,
+	RED + String.fromCharCode(0x265b) + WHITE,
+	RED + String.fromCharCode(0x265a) + WHITE,
+	BLUE + String.fromCharCode(0x265a) + WHITE,
+	RED + String.fromCharCode(0x265a) + WHITE,
+];
 
 function displayBoard(board) {
 	for(let rank = 0; rank < board.length; ++rank) {
@@ -98,9 +83,9 @@ function displayBoard(board) {
 
 		for(let file = 0; file < board[rank].length; ++file) {
 			if((rank + file) % 2 === 0) {
-				process.stdout.write(BG_WHITE + ' ' + pieceCharacter(board[rank][file]) + ' ');
+				process.stdout.write(BG_WHITE + ' ' + PIECE_CHARACTER[board[rank][file]] + ' ');
 			} else {
-				process.stdout.write(BG_BLACK + ' ' + pieceCharacter(board[rank][file]) + ' ');
+				process.stdout.write(BG_BLACK + ' ' + PIECE_CHARACTER[board[rank][file]] + ' ');
 			}
 			process.stdout.write(RESET); // Resets the colors
 		}
@@ -116,11 +101,11 @@ function displayHighlightedBoard(board, squares) {
 
 		for(let file = 0; file < board[rank].length; ++file) {
 			if(squares.indexOf(FILE_COORDINATES[file] + RANK_COORDINATES[rank]) > -1) {
-				process.stdout.write(BG_YELLOW + ' ' + pieceCharacter(board[rank][file]) + ' ');
+				process.stdout.write(BG_YELLOW + ' ' + PIECE_CHARACTER[board[rank][file]] + ' ');
 			} else if((rank + file) % 2 === 0) {
-				process.stdout.write(BG_WHITE + ' ' + pieceCharacter(board[rank][file]) + ' ');
+				process.stdout.write(BG_WHITE + ' ' + PIECE_CHARACTER[board[rank][file]] + ' ');
 			} else {
-				process.stdout.write(BG_BLACK + ' ' + pieceCharacter(board[rank][file]) + ' ');
+				process.stdout.write(BG_BLACK + ' ' + PIECE_CHARACTER[board[rank][file]] + ' ');
 			}
 			process.stdout.write(RESET); // Resets the colors
 		}
