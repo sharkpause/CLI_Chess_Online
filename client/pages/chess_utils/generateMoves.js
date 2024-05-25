@@ -15,7 +15,41 @@ export default function generateMoves(square, board) {
 			const straights = generateRookMoves(square, board);
 
 			return diagonals + straights;
+		case 6:
+			return generateKingMoves(square, board);
 	}
+}
+
+function generateKingMoves(square, board) {
+	const moves = [];
+
+	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] > 6)) {
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1]); // Left
+	}
+	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] > 6)) {
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + square[1]); // Right
+	}
+	if(COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] > 6)) {
+		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1]); // Top
+	}
+	if(COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 6)) {
+		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+1]); // Bottom
+	}
+
+	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 6)) {
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
+	}
+	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 6)) {
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
+	}
+	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 6)) {
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
+	}
+	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] > 6)) {
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
+	}
+
+	return moves;
 }
 
 function generateRookMoves(square, board) {
