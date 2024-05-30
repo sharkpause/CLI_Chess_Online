@@ -19,27 +19,29 @@ import validateMove from './chess_utils/validateMove.js';
 import movePiece from './chess_utils/movePiece.js';
 import generateMoves from './chess_utils/generateMoves.js';
 
-//let board = [
-// 	[10, 8, 9, 11, 14, 9, 8, 10],
-// 	[7, 7, 7, 7, 7, 7, 7, 7],
-//	[0, 0, 0, 0, 0, 0, 0, 0],
-//	[0, 0, 0, 0, 0, 0, 0, 0],
-//	[0, 0, 0, 0, 0, 0, 0, 0],
-//	[0, 0, 0, 0, 0, 0, 0, 0],
-//	[1, 1, 1, 1, 1, 1, 1, 1],
-// 	[4, 2, 3, 5, 13, 3, 2, 4]
-//];
+let moveHistory = [];
 
 let board = [
-	[0, 0, 0, 0, 0, 0, 8, 0],
-	[0, 7, 11, 7, 0, 8, 0, 0],
-	[0, 0, 12, 0, 0, 0, 0, 0],
-	[9, 0, 0, 6, 0, 5, 0, 12],
+ 	[10, 8, 9, 11, 14, 9, 8, 10],
+ 	[7, 7, 7, 7, 7, 7, 7, 7],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 1, 0, 7, 0, 7, 0, 0],
-	[7, 0, 0, 7, 0, 0, 1, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0]
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[1, 1, 1, 1, 1, 1, 1, 1],
+ 	[4, 2, 3, 5, 13, 3, 2, 4]
 ];
+
+//let board = [
+//	[0, 0, 0, 0, 0, 0, 8, 0],
+//	[0, 7, 11, 7, 0, 8, 0, 0], // Testing board
+//	[0, 0, 12, 0, 0, 0, 0, 0],
+//	[9, 0, 0, 6, 0, 5, 0, 12],
+//	[0, 0, 0, 0, 0, 0, 0, 0],
+//	[0, 1, 0, 7, 0, 7, 0, 0],
+//	[7, 0, 0, 7, 0, 0, 1, 0],
+//	[0, 0, 0, 0, 0, 0, 0, 0]
+//];
 
 /*
  * 0 = Empty
@@ -115,7 +117,7 @@ function displayHighlightedBoard(board, squares) {
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
 
-function move(before, after, board) {
+function move(before, after, board, moveHistory) {
 	if(!validateMove(before, after, board)) return 1;
 
 	const beforeFile = COORDINATES[before[0]];
@@ -128,6 +130,8 @@ function move(before, after, board) {
 
 	board[beforeRank][beforeFile] = 0;
 	board[afterRank][afterFile] = pieceToMove;
+
+	moveHistory.push(after);
 }
 
 const squares = generateMoves('d5', board);
