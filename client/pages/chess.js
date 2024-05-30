@@ -19,8 +19,6 @@ import validateMove from './chess_utils/validateMove.js';
 import movePiece from './chess_utils/movePiece.js';
 import generateMoves from './chess_utils/generateMoves.js';
 
-let moveHistory = [];
-
 let board = [
  	[10, 8, 9, 11, 14, 9, 8, 10],
  	[7, 7, 7, 7, 7, 7, 7, 7],
@@ -117,7 +115,7 @@ function displayHighlightedBoard(board, squares) {
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
 
-function move(before, after, board, moveHistory) {
+function move(before, after, board) {
 	if(!validateMove(before, after, board)) return 1;
 
 	const beforeFile = COORDINATES[before[0]];
@@ -130,10 +128,8 @@ function move(before, after, board, moveHistory) {
 
 	board[beforeRank][beforeFile] = 0;
 	board[afterRank][afterFile] = pieceToMove;
-
-	moveHistory.push(after);
 }
 
-const squares = generateMoves('d5', board);
+const squares = generateMoves('d2', board);
 
-displayHighlightedBoard(board, squares);
+displayBoard(board);
