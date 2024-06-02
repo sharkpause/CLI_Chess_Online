@@ -49,13 +49,13 @@ let board = [
  * 4 = White Rook
  * 5 = White Queen
  * 6 = White King
- * 7  = Black Pawn
- * 8  = Black Knight
- * 9  = Black Bishop
- * 10 = Black Rook
- * 11 = Black Queen
- * 12 = Black King
- * 13 = White King (unmoved)
+ * 7 = White King (unmoved)
+ * 8 = Black Pawn
+ * 9 = Black Knight
+ * 10 = Black Bishop
+ * 11 = Black Rook
+ * 12 = Black Queen
+ * 13 = Black King
  * 14 = Black King (unmoved)
  */
 
@@ -67,14 +67,14 @@ const PIECE_CHARACTER = [
 	BLUE + String.fromCharCode(0x265c) + WHITE,
 	BLUE + String.fromCharCode(0x265b) + WHITE,
 	BLUE + String.fromCharCode(0x265a) + WHITE,
+	BLUE + String.fromCharCode(0x265a) + WHITE,
 	RED + String.fromCharCode(0x265f) + WHITE,
 	RED + String.fromCharCode(0x265e) + WHITE,
 	RED + String.fromCharCode(0x265d) + WHITE,
 	RED + String.fromCharCode(0x265c) + WHITE,
 	RED + String.fromCharCode(0x265b) + WHITE,
 	RED + String.fromCharCode(0x265a) + WHITE,
-	BLUE + String.fromCharCode(0x265a) + WHITE,
-	RED + String.fromCharCode(0x265a) + WHITE,
+	RED + String.fromCharCode(0x265a) + WHITE
 ];
 
 function displayBoard(board) {
@@ -96,6 +96,8 @@ function displayBoard(board) {
 }
 
 function displayHighlightedBoard(board, squares) {
+	if(squares === undefined || squares.length <= 0) return displayBoard(board);
+
 	for(let rank = 0; rank < board.length; ++rank) {
 		process.stdout.write(8-rank + "\t"); // Writes the rank
 
@@ -130,4 +132,4 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
-displayHighlightedBoard(board, generateMoves('e7', board));
+displayHighlightedBoard(board, generateMoves('e4', board));

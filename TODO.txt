@@ -1,5 +1,6 @@
 TODO:
 
+- Work on enemy piece moves for checks
 - Work on move history
 - Work on en passant
 - Work on checks

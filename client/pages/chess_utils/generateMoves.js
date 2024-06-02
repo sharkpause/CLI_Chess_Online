@@ -23,29 +23,29 @@ export default function generateMoves(square, board) {
 function generateKingMoves(square, board) {
 	const moves = [];
 
-	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] > 6)) {
+	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] > 7)) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1]); // Left
 	}
-	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] > 6)) {
+	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] > 7)) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + square[1]); // Right
 	}
-	if(COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] > 6)) {
+	if(COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] > 7)) {
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1]); // Top
 	}
-	if(COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 6)) {
+	if(COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 7)) {
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+1]); // Bottom
 	}
 
-	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 6)) {
+	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 7)) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
-	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 6)) {
+	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 7)) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
-	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 6)) {
+	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 7)) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
-	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] > 6)) {
+	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] > 7)) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
 
@@ -55,11 +55,11 @@ function generateKingMoves(square, board) {
 function generateRookMoves(square, board) {
 	const moves = [];
 
-	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty, > 6 = checks for enemy pieces
+	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty, > 7 = checks for enemy pieces
 		if(COORDINATES[square[0]]-i >= 0) {
 			if(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
-			} else if(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] > 6) {
+			} else if(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] > 7) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
 				break;
 			} else {
@@ -72,7 +72,7 @@ function generateRookMoves(square, board) {
 		if(COORDINATES[square[1]]-i >= 0) {
 			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] === 0) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] > 6) {
+			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] > 7) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
 				break;
 			} else {
@@ -85,7 +85,7 @@ function generateRookMoves(square, board) {
 		if(COORDINATES[square[0]]+i < 8) {
 			if(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
-			} else if(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] > 6) {
+			} else if(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] > 7) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
 				break;
 			} else {
@@ -98,7 +98,7 @@ function generateRookMoves(square, board) {
 		if(COORDINATES[square[1]]+i < 8) {
 			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] === 0) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] > 6) {
+			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] > 7) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 				break;
 			} else {
@@ -117,7 +117,7 @@ function generateBishopMoves(square, board) {
 		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]-i >= 0) {
 			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i] > 6) {
+			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i] > 7) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
 				break;
 			} else {
@@ -130,7 +130,7 @@ function generateBishopMoves(square, board) {
 		if(COORDINATES[square[0]]+i < 8 && COORDINATES[square[1]]+i < 8) {
 			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]+i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]+i] > 6) {
+			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]+i] > 7) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 				break;
 			} else {
@@ -143,7 +143,7 @@ function generateBishopMoves(square, board) {
 		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]+i < 8) {
 			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]-i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]-i] > 6) {
+			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]-i] > 7) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 				break;
 			} else {
@@ -156,7 +156,7 @@ function generateBishopMoves(square, board) {
 		if(COORDINATES[square[0]]+i < 8 && COORDINATES[square[1]]-i >= 0) {
 			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]+i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]+i] > 6) {
+			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]+i] > 7) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
 				break;
 			} else {
@@ -181,11 +181,11 @@ function generatePawnMoves(square, board) {
 		// Checks if one square in front of the pawn is empty
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
-	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 6) {
+	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 7) {
 		// Checks if one square in front of the pawn and to the left has an enemy piece
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
-	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 6) {
+	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 7) {
 		// Checks if one square in front of the pawn and to the right has an enemy piece
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
@@ -196,35 +196,35 @@ function generatePawnMoves(square, board) {
 function generateKnightMoves(square, board) {
 	const moves = [];
 
-	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 6)) {
+	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 7)) {
 		// Check if two squares up and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] > 6)) {
+	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] > 7)) {
 		// Check if two squares up and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] > 6)) {
+	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] > 7)) {
 		// Check if two squares down and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
 	}
-	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] === 0 || board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] > 6)) {
+	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] === 0 || board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] > 7)) {
 		// Check if two squares down and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
 	}
-	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] === 0 || board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] > 6)) {
+	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] === 0 || board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] > 7)) {
 		// Check if two squares left and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
-	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] === 0 || board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] > 6)) {
+	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] === 0 || board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] > 7)) {
 		// Check if two squares left and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
 	}
-	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] === 0 || board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] > 6)) {
+	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] === 0 || board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] > 7)) {
 		// Check if two squares right and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
-	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] === 0 || board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] > 6)) {
+	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] === 0 || board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] > 7)) {
 		// Check if two squares right and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
 	}
