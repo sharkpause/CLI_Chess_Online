@@ -18,6 +18,7 @@ import {
 import validateMove from './chess_utils/validateMove.js';
 import movePiece from './chess_utils/movePiece.js';
 import generateMoves from './chess_utils/generateMoves.js';
+import checks from './chess_utils/checks.js';
 
 //let board = [
 // 	[10, 8, 9, 11, 14, 9, 8, 10],
@@ -132,4 +133,5 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
+console.log(checks('e4', board));
 displayHighlightedBoard(board, generateMoves('e4', board));

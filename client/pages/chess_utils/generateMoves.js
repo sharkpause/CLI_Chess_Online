@@ -3,7 +3,7 @@ import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js'
 export default function generateMoves(square, board) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {
 		case 1:
-			return generatePawnMoves(square, board);
+			return generateWhitePawnMoves(square, board);
 		case 2:
 			return generateKnightMoves(square, board);
 		case 3:
@@ -17,6 +17,8 @@ export default function generateMoves(square, board) {
 			return diagonals + straights;
 		case 6:
 			return generateKingMoves(square, board);
+		case 9:
+			return generateKnightMoves(square, board, 0);
 	}
 }
 
@@ -165,12 +167,10 @@ function generateBishopMoves(square, board) {
 		}
 	}	
 
-	console.log(moves);
-
 	return moves;
 }
 
-function generatePawnMoves(square, board) {
+function generateWhitePawnMoves(square, board) {
 	const moves = [];
 
 	if(COORDINATES[square[1]]-2 > 0 && board[COORDINATES[square[1]]-2][COORDINATES[square[0]]] === 0) {
@@ -193,7 +193,7 @@ function generatePawnMoves(square, board) {
 	return moves;
 }
 
-function generateKnightMoves(square, board) {
+function generateKnightMoves(square, board, enemyColor) {
 	const moves = [];
 
 	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 7)) {
@@ -224,10 +224,23 @@ function generateKnightMoves(square, board) {
 		// Check if two squares right and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
-	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] === 0 || board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] > 7)) {
+	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2], enemyColor))) {
 		// Check if two squares right and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
 	}
 
 	return moves;
+}
+
+function isEnemyPiece(square, enemyColor) { // 0: White, 1: Black
+	if(enemyColor === 1) {
+		if(square > 7) {
+			return true;
+		}
+	} else if(enemyColor === 0) {
+		if(square < 8 && square > 0) {
+			return true;
+		}
+	}
+	return false;
 }
