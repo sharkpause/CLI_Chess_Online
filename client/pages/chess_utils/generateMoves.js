@@ -17,6 +17,8 @@ export default function generateMoves(square, board) {
 			return diagonals + straights;
 		case 6:
 			return generateKingMoves(square, board);
+		case 8:
+			return generateBlackPawnMoves(square, board);
 		case 9:
 			return generateKnightMoves(square, board, 0);
 	}
@@ -188,6 +190,29 @@ function generateWhitePawnMoves(square, board) {
 	if(COORDINATES[square[1]]-1 > 0 && board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 7) {
 		// Checks if one square in front of the pawn and to the right has an enemy piece
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
+	}
+
+	return moves;
+}
+
+function generateBlackPawnMoves(square, board) {
+	const moves = [];
+
+	if(COORDINATES[square[1]]+2 > 0 && board[COORDINATES[square[1]]+2][COORDINATES[square[0]]] === 0) {
+		// Checks if two squares in front of the pawn is empty and not outside the board
+		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+2]);
+	}
+	if(COORDINATES[square[1]]+1 > 0 && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0) {
+		// Checks if one square in front of the pawn is empty
+		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
+	}
+	if(COORDINATES[square[1]]+1 > 0 && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] < 8) {
+		// Checks if one square in front of the pawn and to the left has an enemy piece
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
+	}
+	if(COORDINATES[square[1]]+1 > 0 && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] < 8) {
+		// Checks if one square in front of the pawn and to the right has an enemy piece
+		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
 
 	return moves;
