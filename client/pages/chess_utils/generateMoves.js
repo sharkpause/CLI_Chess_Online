@@ -5,7 +5,7 @@ export default function generateMoves(square, board) {
 		case 1:
 			return generateWhitePawnMoves(square, board);
 		case 2:
-			return generateKnightMoves(square, board);
+			return generateKnightMoves(square, board, 1);
 		case 3:
 			return generateBishopMoves(square, board);
 		case 4:
@@ -196,31 +196,31 @@ function generateWhitePawnMoves(square, board) {
 function generateKnightMoves(square, board, enemyColor) {
 	const moves = [];
 
-	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 7)) {
+	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 7, enemyColor))) {
 		// Check if two squares up and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] === 0 || board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] > 7)) {
+	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] > 7, enemyColor))) {
 		// Check if two squares up and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
 	}
-	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] === 0 || board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] > 7)) {
+	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] > 7, enemyColor))) {
 		// Check if two squares down and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
 	}
-	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] === 0 || board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] > 7)) {
+	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] > 7, enemyColor))) {
 		// Check if two squares down and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
 	}
-	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] === 0 || board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] > 7)) {
+	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] > 7, enemyColor))) {
 		// Check if two squares left and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}
-	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] === 0 || board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] > 7)) {
+	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] > 7, enemyColor))) {
 		// Check if two squares left and one square right is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
 	}
-	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] === 0 || board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] > 7)) {
+	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] > 7, enemyColor))) {
 		// Check if two squares right and one square left is empty
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
 	}

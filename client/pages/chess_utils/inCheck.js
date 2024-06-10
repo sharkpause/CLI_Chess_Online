@@ -2,7 +2,7 @@ import generateMoves from './generateMoves.js';
 
 import { FILE_COORDINATES, RANK_COORDINATES } from './constants.js';
 
-export default function checks(kingSquare, board) {
+export default function inCheck(kingSquare, board) {
 	for(let i = 0; i < board.length; ++i) {
 		for(let j = 0; j < board[i].length; ++j) {
 			if(board[i][j] !== 0) {
