@@ -9,7 +9,7 @@ export default function generateMoves(square, board) {
 		case 3:
 			return generateBishopMoves(square, board, 1);
 		case 4:
-			return generateRookMoves(square, board);
+			return generateRookMoves(square, board, 1);
 		case 5:
 			const diagonals = generateBishopMoves(square, board);
 			const straights = generateRookMoves(square, board);
@@ -23,6 +23,8 @@ export default function generateMoves(square, board) {
 			return generateKnightMoves(square, board, 0);
 		case 10:
 			return generateBishopMoves(square, board, 0);
+		case 11:
+			return generateRookMoves(square, board, 0);
 	}
 }
 
@@ -58,14 +60,14 @@ function generateKingMoves(square, board) {
 	return moves;
 }
 
-function generateRookMoves(square, board) {
+function generateRookMoves(square, board, enemyColor) {
 	const moves = [];
 
-	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty, > 7 = checks for enemy pieces
+	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty
 		if(COORDINATES[square[0]]-i >= 0) {
 			if(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
-			} else if(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] > 7) {
+			} else if(isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i], enemyColor)) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
 				break;
 			} else {
@@ -78,7 +80,7 @@ function generateRookMoves(square, board) {
 		if(COORDINATES[square[1]]-i >= 0) {
 			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] === 0) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] > 7) {
+			} else if(isEnemyPiece(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]], enemyColor)) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
 				break;
 			} else {
@@ -91,7 +93,7 @@ function generateRookMoves(square, board) {
 		if(COORDINATES[square[0]]+i < 8) {
 			if(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] === 0) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
-			} else if(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] > 7) {
+			} else if(isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i], enemyColor)) {
 				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
 				break;
 			} else {
@@ -104,7 +106,7 @@ function generateRookMoves(square, board) {
 		if(COORDINATES[square[1]]+i < 8) {
 			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] === 0) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] > 7) {
+			} else if(isEnemyPiece(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]], enemyColor)) {
 				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
 				break;
 			} else {
