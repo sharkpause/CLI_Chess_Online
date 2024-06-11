@@ -11,10 +11,10 @@ export default function generateMoves(square, board) {
 		case 4:
 			return generateRookMoves(square, board, 1);
 		case 5:
-			const diagonals = generateBishopMoves(square, board);
-			const straights = generateRookMoves(square, board);
+			const diagonalsWhite = generateBishopMoves(square, board, 1);
+			const straightsWhite = generateRookMoves(square, board, 1);
 
-			return diagonals + straights;
+			return diagonalsWhite + straightsWhite;
 		case 6:
 			return generateKingMoves(square, board);
 		case 8:
@@ -25,6 +25,11 @@ export default function generateMoves(square, board) {
 			return generateBishopMoves(square, board, 0);
 		case 11:
 			return generateRookMoves(square, board, 0);
+		case 12:
+			const diagonalsBlack = generateBishopMoves(square, board, 0);
+			const straightsBlack = generateRookMoves(square, board, 0);
+
+			return diagonalsBlack + straightsBlack;
 	}
 }
 
