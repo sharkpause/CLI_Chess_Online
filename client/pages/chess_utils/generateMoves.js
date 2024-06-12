@@ -1,11 +1,13 @@
 import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js';
+import inCheck from './inCheck.js';
+import checkFilter from './checkFilter.js';
 
-export default function generateMoves(square, board) {
+export default function generateMoves(square, board, fromCheckFilter) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {
 		case 1:
 			return generateWhitePawnMoves(square, board);
 		case 2:
-			return generateKnightMoves(square, board, 1);
+			return generateKnightMoves(square, board, 1); // 0: White, 1: Black
 		case 3:
 			return generateBishopMoves(square, board, 1);
 		case 4:
@@ -16,7 +18,7 @@ export default function generateMoves(square, board) {
 
 			return diagonalsWhite + straightsWhite;
 		case 6:
-			return generateKingMoves(square, board, 1);
+			return generateKingMoves(square, board, 1, fromCheckFilter);
 		case 8:
 			return generateBlackPawnMoves(square, board);
 		case 9:
@@ -31,11 +33,11 @@ export default function generateMoves(square, board) {
 
 			return diagonalsBlack + straightsBlack;
 		case 13:
-			return generateKingMoves(square, board, 0);
+			return generateKingMoves(square, board, 0, fromCheckFilter);
 	}
 }
 
-function generateKingMoves(square, board, enemyColor) {
+function generateKingMoves(square, board, enemyColor, fromCheckFilter) {
 	const moves = [];
 
 	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-1], enemyColor))) {
@@ -64,7 +66,8 @@ function generateKingMoves(square, board, enemyColor) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
 
-	return moves;
+	if(fromCheckFilter) return moves;
+	return checkFilter(moves, board, enemyColor);
 }
 
 function generateRookMoves(square, board, enemyColor) {
@@ -266,17 +269,4 @@ function generateKnightMoves(square, board, enemyColor) {
 	}
 
 	return moves;
-}
-
-function isEnemyPiece(square, enemyColor) { // 0: White, 1: Black
-	if(enemyColor === 1) {
-		if(square > 7) {
-			return true;
-		}
-	} else if(enemyColor === 0) {
-		if(square < 8 && square > 0) {
-			return true;
-		}
-	}
-	return false;
 }

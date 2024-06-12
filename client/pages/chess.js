@@ -34,9 +34,9 @@ import inCheck from './chess_utils/inCheck.js';
 let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
+	[0, 0, 0, 11, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 13, 0, 0, 0],
+	[0, 0, 0, 0, 6, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
@@ -134,4 +134,4 @@ function move(before, after, board) {
 }
 
 console.log(inCheck('e4', board));
-displayHighlightedBoard(board, generateMoves('e4', board));
+displayHighlightedBoard(board, generateMoves('e4', board, false));
