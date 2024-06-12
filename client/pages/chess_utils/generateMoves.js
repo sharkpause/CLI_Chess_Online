@@ -16,7 +16,7 @@ export default function generateMoves(square, board) {
 
 			return diagonalsWhite + straightsWhite;
 		case 6:
-			return generateKingMoves(square, board);
+			return generateKingMoves(square, board, 1);
 		case 8:
 			return generateBlackPawnMoves(square, board);
 		case 9:
@@ -30,35 +30,37 @@ export default function generateMoves(square, board) {
 			const straightsBlack = generateRookMoves(square, board, 0);
 
 			return diagonalsBlack + straightsBlack;
+		case 13:
+			return generateKingMoves(square, board, 0);
 	}
 }
 
-function generateKingMoves(square, board) {
+function generateKingMoves(square, board, enemyColor) {
 	const moves = [];
 
-	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] > 7)) {
+	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1]); // Left
 	}
-	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] > 7)) {
+	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]+1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + square[1]); // Right
 	}
-	if(COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] > 7)) {
+	if(COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || isEnemyPiece(board[COORDINATES[square[1]]-1][COORDINATES[square[0]]], enemyColor))) {
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1]); // Top
 	}
-	if(COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 7)) {
+	if(COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || isEnemyPiece(board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1], enemyColor))) {
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+1]); // Bottom
 	}
 
-	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] > 7)) {
+	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]-1][COORDINATES[square[0]]-1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
-	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] > 7)) {
+	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]-1 >= 0) && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]-1][COORDINATES[square[0]]+1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]-1]);
 	}
-	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 7)) {
+	if((COORDINATES[square[0]]-1 >= 0 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
-	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] === 0 || board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] > 7)) {
+	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]+1 < 8) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
 
