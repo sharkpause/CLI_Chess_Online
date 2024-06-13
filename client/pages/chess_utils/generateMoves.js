@@ -1,6 +1,7 @@
 import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js';
 import inCheck from './inCheck.js';
 import checkFilter from './checkFilter.js';
+import isEnemyPiece from './isEnemyPiece.js';
 
 export default function generateMoves(square, board, fromCheckFilter) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {

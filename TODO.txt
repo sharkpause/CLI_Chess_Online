@@ -2,6 +2,6 @@ TODO:
 
 - Work on move history
 - Work on en passant
-- Work on check filter
+- Scrap check filter
 - Work on checks
 - Make a feature where only one instance of an account can exist using a web socket only when the user is establishing a chess game
