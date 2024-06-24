@@ -1,9 +1,8 @@
 import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js';
 import inCheck from './inCheck.js';
-import checkFilter from './checkFilter.js';
 import isEnemyPiece from './isEnemyPiece.js';
 
-export default function generateMoves(square, board, fromCheckFilter) {
+export default function generateMoves(square, board) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {
 		case 1:
 			return generateWhitePawnMoves(square, board);
@@ -19,7 +18,7 @@ export default function generateMoves(square, board, fromCheckFilter) {
 
 			return diagonalsWhite + straightsWhite;
 		case 6:
-			return generateKingMoves(square, board, 1, fromCheckFilter);
+			return generateKingMoves(square, board, 1;
 		case 8:
 			return generateBlackPawnMoves(square, board);
 		case 9:
@@ -34,11 +33,11 @@ export default function generateMoves(square, board, fromCheckFilter) {
 
 			return diagonalsBlack + straightsBlack;
 		case 13:
-			return generateKingMoves(square, board, 0, fromCheckFilter);
+			return generateKingMoves(square, board, 0);
 	}
 }
 
-function generateKingMoves(square, board, enemyColor, fromCheckFilter) {
+function generateKingMoves(square, board, enemyColor) {
 	const moves = [];
 
 	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-1], enemyColor))) {
@@ -67,8 +66,7 @@ function generateKingMoves(square, board, enemyColor, fromCheckFilter) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
 
-	if(fromCheckFilter) return moves;
-	return checkFilter(moves, board, enemyColor);
+	return moves;
 }
 
 function generateRookMoves(square, board, enemyColor) {
