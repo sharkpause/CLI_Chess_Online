@@ -43,13 +43,13 @@ function generateKingMoves(square, board, enemyColor) {
 	if(!inCheck(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1], board, enemyColor) && (COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-1], enemyColor)))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1]); // Left
 	}
-	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]+1], enemyColor))) {
+	if(!inCheck(FILE_COORDINATES[COORDINATES[square[0]]+1] + square[1], board, enemyColor) && (COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]+1], enemyColor)))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + square[1]); // Right
 	}
-	if(COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || isEnemyPiece(board[COORDINATES[square[1]]-1][COORDINATES[square[0]]], enemyColor))) {
+	if(!inCheck(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1], board, enemyColor) && (COORDINATES[square[1]]-1 >= 0 && (board[COORDINATES[square[1]]-1][COORDINATES[square[0]]] === 0 || isEnemyPiece(board[COORDINATES[square[1]]-1][COORDINATES[square[0]]], enemyColor)))) {
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-1]); // Top
 	}
-	if(COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || isEnemyPiece(board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1], enemyColor))) {
+	if(!inCheck(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+1], board, enemyColor) && (COORDINATES[square[1]]+1 < 8 && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]] === 0 || isEnemyPiece(board[COORDINATES[square[1]]+1][COORDINATES[square[0]]], enemyColor)))) {
 		moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+1]); // Bottom
 	}
 
