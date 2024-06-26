@@ -1,5 +1,6 @@
 TODO:
 
+- Implement a function for generating moves for inCheck exclusively
 - Implement king position memory system or do a linear search for the king position
 - Work on move history
 - Work on en passant
