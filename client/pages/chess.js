@@ -42,6 +42,9 @@ let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+let WhiteKingPosition = ''; // White is essentially just friendly king, and black is enemy king
+let BlackKingPosition = ''; // Might rename them along with the functions to friendly and enemy
+
 /*
  * 0 = Empty
  * 1 = White Pawn
