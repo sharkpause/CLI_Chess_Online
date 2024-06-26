@@ -42,7 +42,7 @@ let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-let whiteKingPosition = ''; // White is essentially just friendly king, and black is enemy king
+let whiteKingPosition = 'e4'; // White is essentially just friendly king, and black is enemy king
 let blackKingPosition = ''; // Might rename them along with the functions to friendly and enemy
 
 /*
