@@ -18,7 +18,7 @@ export default function generateMoves(square, board) {
 
 			return diagonalsWhite + straightsWhite;
 		case 6:
-			return generateKingMoves(square, board, 1;
+			return generateKingMoves(square, board, 1);
 		case 8:
 			return generateBlackPawnMoves(square, board);
 		case 9:
@@ -40,7 +40,7 @@ export default function generateMoves(square, board) {
 function generateKingMoves(square, board, enemyColor) {
 	const moves = [];
 
-	if(COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-1], enemyColor))) {
+	if(!inCheck(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1], board, enemyColor) && (COORDINATES[square[0]]-1 >= 0 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]-1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-1], enemyColor)))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + square[1]); // Left
 	}
 	if(COORDINATES[square[0]]+1 < 8 && (board[COORDINATES[square[1]]][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]+1], enemyColor))) {

@@ -34,8 +34,8 @@ import inCheck from './chess_utils/inCheck.js';
 let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
+	[0, 0, 0, 12, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 11, 0, 11, 0, 0],
 	[0, 0, 0, 0, 6, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
@@ -133,5 +133,5 @@ function move(before, after, board) {
 	board[afterRank][afterFile] = pieceToMove;
 }
 
-console.log(inCheck('e4', board));
+console.log('in check: ' + inCheck('e4', board));
 displayHighlightedBoard(board, generateMoves('e4', board, false));
