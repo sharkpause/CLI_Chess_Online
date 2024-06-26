@@ -1,5 +1,6 @@
 TODO:
 
+- Implement king position memory system or do a linear search for the king position
 - Work on move history
 - Work on en passant
 - Scrap check filter
