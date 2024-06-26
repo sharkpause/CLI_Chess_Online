@@ -42,8 +42,8 @@ let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
-let WhiteKingPosition = ''; // White is essentially just friendly king, and black is enemy king
-let BlackKingPosition = ''; // Might rename them along with the functions to friendly and enemy
+let whiteKingPosition = ''; // White is essentially just friendly king, and black is enemy king
+let blackKingPosition = ''; // Might rename them along with the functions to friendly and enemy
 
 /*
  * 0 = Empty
@@ -137,4 +137,4 @@ function move(before, after, board) {
 }
 
 console.log('in check: ' + inCheck('e4', board));
-displayHighlightedBoard(board, generateMoves('e4', board, false));
+displayHighlightedBoard(board, generateMoves('e4', board, false, whiteKingPosition));
