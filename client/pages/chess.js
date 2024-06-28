@@ -134,7 +134,13 @@ function move(before, after, board) {
 
 	board[beforeRank][beforeFile] = 0;
 	board[afterRank][afterFile] = pieceToMove;
+
+	if(pieceToMove === 6 || pieceToMove === 7) whiteKingPosition = after;
+	if(pieceToMove === 13 || pieceToMove === 14) blackKingPosition = after;
 }
 
 console.log('in check: ' + inCheck('e4', board));
 displayHighlightedBoard(board, generateMoves('e4', board, false, whiteKingPosition));
+move('e4', 'f5', board);
+
+console.log(whiteKingPosition);
