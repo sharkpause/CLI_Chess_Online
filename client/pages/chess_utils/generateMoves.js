@@ -1,6 +1,7 @@
 import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js';
 import inCheck from './inCheck.js';
 import isEnemyPiece from './isEnemyPiece.js';
+import displayHighlightedBoard from '../chess.js';
 
 export default function generateMoves(square, board, kingPosition) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {
@@ -72,38 +73,75 @@ function generateKingMoves(square, board, enemyColor) {
 function generateRookMoves(square, board, enemyColor, kingPosition) {
 	const moves = [];
 
+	let tempBoard = JSON.parse(JSON.stringify(board));
+	let moveCoordinates;
+
 	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty
-		if(COORDINATES[square[0]]-i >= 0) {
-			if(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i] === 0) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]-i], enemyColor)) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + square[1]);
+		moveCoordinates = COORDINATES[square[0]]-i;
+
+		if(moveCoordinates >= 0) {
+			if(board[COORDINATES[square[1]]][moveCoordinates] === 0) {
+				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
+			} else if(isEnemyPiece(board[COORDINATES[square[1]]][moveCoordinates], moveCoordinates, enemyColor)) {
+				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;;
+
+				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
 				break;
 			} else {
 				break;
 			}
 		}
 	}
+
+	tempBoard = JSON.parse(JSON.stringify(board));
 
 	for(let i = 1; i < board.length; ++i) { // Top
-		if(COORDINATES[square[1]]-i >= 0) {
-			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]] === 0) {
-				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]], enemyColor)) {
-				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
+		moveCoordinates = COORDINATES[square[1]]-i;
+
+		if(moveCoordinates >= 0) {
+			if(board[moveCoordinates][COORDINATES[square[0]]] === 0) {
+				move(square, square[0] + RANK_COORDINATES[moveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(square[0] + RANK_COORDINATES[moveCoordinates]);
+			} else if(isEnemyPiece(board[moveCoordinates][COORDINATES[square[0]]], enemyColor)) {
+				move(square, square[0] + RANK_COORDINATES[moveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(square[0] + RANK_COORDINATES[moveCoordinates]);
 				break;
 			} else {
 				break;
 			}
 		}
 	}
+
+	tempBoard = JSON.parse(JSON.stringify(board));
 
 	for(let i = 1; i < board.length; ++i) { // Right
-		if(COORDINATES[square[0]]+i < 8) {
-			if(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i] === 0) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]][COORDINATES[square[0]]+i], enemyColor)) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + square[1]);
+		moveCoordinates = COORDINATES[square[0]]+i;
+
+		if(moveCoordinates < 8) {
+			if(board[COORDINATES[square[1]]][moveCoordinates] === 0) {
+				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
+			} else if(isEnemyPiece(board[COORDINATES[square[1]]][moveCoordinates], enemyColor)) {
+				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
 				break;
 			} else {
 				break;
@@ -111,12 +149,24 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
+	tempBoard = JSON.parse(JSON.stringify(board));
+
 	for(let i = 1; i < board.length; ++i) { // Bottom
-		if(COORDINATES[square[1]]+i < 8) {
-			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]] === 0) {
-				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]], enemyColor)) {
-				moves.push(square[0] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
+		moveCoordinates = COORDINATES[square[1]]+i;
+
+		if(moveCoordinates < 8) {
+			if(board[moveCoordinates][COORDINATES[square[0]]] === 0) {
+				move(square, square[0] + RANK_COORDINATES[moveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(square[0] + RANK_COORDINATES[moveCoordinates]);
+			} else if(isEnemyPiece(board[moveCoordinates][COORDINATES[square[0]]], enemyColor)) {
+				move(square, square[0] + RANK_COORDINATES[moveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(square[0] + RANK_COORDINATES[moveCoordinates]);
 				break;
 			} else {
 				break;
@@ -268,4 +318,17 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	}
 
 	return moves;
+}
+
+function move(before, after, board) {
+	const beforeFile = COORDINATES[before[0]];
+	const beforeRank = COORDINATES[before[1]];
+
+	const afterFile = COORDINATES[after[0]];
+	const afterRank = COORDINATES[after[1]];
+
+	const pieceToMove = board[beforeRank][beforeFile];
+
+	board[beforeRank][beforeFile] = 0;
+	board[afterRank][afterFile] = pieceToMove;
 }

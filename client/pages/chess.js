@@ -32,12 +32,12 @@ import inCheck from './chess_utils/inCheck.js';
 //];
 
 let board = [
-	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 12, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
-	[0, 0, 0, 12, 0, 0, 0, 0],
+	[0, 0, 0, 0, 4, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 6, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 12, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
@@ -99,7 +99,7 @@ function displayBoard(board) {
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
 
-function displayHighlightedBoard(board, squares) {
+export default function displayHighlightedBoard(board, squares) {
 	if(squares === undefined || squares.length <= 0) return displayBoard(board);
 
 	for(let rank = 0; rank < board.length; ++rank) {
@@ -140,7 +140,7 @@ function move(before, after, board) {
 }
 
 console.log('in check: ' + inCheck('e4', board));
-displayHighlightedBoard(board, generateMoves('e4', board, false, whiteKingPosition));
+displayHighlightedBoard(board, generateMoves('e6', board, whiteKingPosition));
 move('e4', 'f5', board);
 
 console.log(whiteKingPosition);

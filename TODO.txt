@@ -1,6 +1,5 @@
 TODO:
 
-- Implement a temporary board position to simulate the move and checking if the king is in check
 - Implement king position memory system or do a linear search for the king position
 - Work on move history
 - Work on en passant
