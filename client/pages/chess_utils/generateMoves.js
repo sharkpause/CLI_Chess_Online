@@ -373,37 +373,76 @@ function generateBlackPawnMoves(square, board, kingPosition) {
 function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	const moves = [];
 
-	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 7, enemyColor))) {
+	let tempBoard = JSON.parse(JSON.stringify(board));
+	let fileMoveCoordinates = COORDINATES[square[0]] - 1;
+	let rankmoveCoordinates = COORDINATES[square[1]] - 2;
+
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates]][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares up and one square left is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] + 1] > 7, enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] + 1;
+	rankMoveCoordinates = COORDINATES[square[1]] - 2;
+
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares up and one square right is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] - 2]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] - 1] > 7, enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] - 1;
+	rankMoveCoordinates = COORDINATES[square[1]] + 2;
+
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares down and one square left is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] + 2 < 8 && COORDINATES[square[0]] + 1 < 8) && (board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 2][COORDINATES[square[0]] + 1] > 7, enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] + 1;
+	rankMoveCoordinates = COORDINATES[square[1]] + 2;
+
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares down and one square right is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 1] + RANK_COORDINATES[COORDINATES[square[1]] + 2]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] - 2] > 7, enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] - 2;
+	rankMoveCoordinates = COORDINATES[square[1]] - 1;
+
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares left and one square left is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] - 2 >= 0) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] - 2] > 7, enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] - 2;
+	rankMoveCoordinates = COORDINATES[square[1]] + 1;
+
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares left and one square right is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] - 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] - 1 >= 0 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 1][COORDINATES[square[0]] + 2] > 7, enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] + 2;
+	rankMoveCoordinates = COORDINATES[square[1]] - 1;
+
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares right and one square left is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] - 1]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
-	if((COORDINATES[square[1]] + 1 < 8 && COORDINATES[square[0]] + 2 < 8) && (board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2] === 0 || isEnemyPiece(board[COORDINATES[square[1]] + 1][COORDINATES[square[0]] + 2], enemyColor))) {
+
+	tempBoard = JSON.parse(JSON.stringify(board));
+	fileMoveCoordinates = COORDINATES[square[0]] + 2;
+	rankMoveCoordinates = COORDINATES[square[1]] + 1;
+
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor))) {
 		// Check if two squares right and one square right is empty
-		moves.push(FILE_COORDINATES[COORDINATES[square[0]] + 2] + RANK_COORDINATES[COORDINATES[square[1]] + 1]);
+		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
 
 	return moves;
