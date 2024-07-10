@@ -32,9 +32,9 @@ import inCheck from './chess_utils/inCheck.js';
 //];
 
 let board = [
-	[0, 0, 3, 0, 12, 0, 0, 0],
+	[0, 0, 0, 0, 12, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
-	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 5, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 6, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
@@ -139,4 +139,4 @@ function move(before, after, board) {
 	if(pieceToMove === 13 || pieceToMove === 14) blackKingPosition = after;
 }
 
-displayHighlightedBoard(board, generateMoves('c8', board, whiteKingPosition));
+displayHighlightedBoard(board, generateMoves('c6', board, whiteKingPosition));

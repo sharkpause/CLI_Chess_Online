@@ -73,10 +73,11 @@ function generateKingMoves(square, board, enemyColor) {
 function generateRookMoves(square, board, enemyColor, kingPosition) {
 	const moves = [];
 
-	let tempBoard = JSON.parse(JSON.stringify(board));
+	let tempBoard;
 	let moveCoordinates;
 
 	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty
+		tempBoard = JSON.parse(JSON.stringify(board));
 		moveCoordinates = COORDINATES[square[0]]-i;
 
 		if(moveCoordinates >= 0) {
@@ -99,9 +100,8 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
-	tempBoard = JSON.parse(JSON.stringify(board));
-
 	for(let i = 1; i < board.length; ++i) { // Top
+		tempBoard = JSON.parse(JSON.stringify(board));
 		moveCoordinates = COORDINATES[square[1]]-i;
 
 		if(moveCoordinates >= 0) {
@@ -124,9 +124,8 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
-	tempBoard = JSON.parse(JSON.stringify(board));
-
 	for(let i = 1; i < board.length; ++i) { // Right
+		tempBoard = JSON.parse(JSON.stringify(board));
 		moveCoordinates = COORDINATES[square[0]]+i;
 
 		if(moveCoordinates < 8) {
@@ -149,9 +148,8 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
-	tempBoard = JSON.parse(JSON.stringify(board));
-
 	for(let i = 1; i < board.length; ++i) { // Bottom
+		tempBoard = JSON.parse(JSON.stringify(board));
 		moveCoordinates = COORDINATES[square[1]]+i;
 
 		if(moveCoordinates < 8) {
@@ -180,11 +178,12 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 function generateBishopMoves(square, board, enemyColor, kingPosition) {
 	const moves = [];
 
-	let tempBoard = JSON.parse(JSON.stringify(board));
+	let tempBoard;
 	let fileMoveCoordinates;
 	let rankMoveCoordinates;
 
 	for(let i = 1; i < board.length; ++i) { // Top-left
+		tempBoard = JSON.parse(JSON.stringify(board));
 		fileMoveCoordinates = COORDINATES[square[0]]-i;
 		rankMoveCoordinates = COORDINATES[square[1]]-i;
 
@@ -208,16 +207,14 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
-	tempBoard = JSON.parse(JSON.stringify(board));
-
 	for(let i = 1; i < board.length; ++i) { // Bottom-right
+		tempBoard = JSON.parse(JSON.stringify(board));
 		fileMoveCoordinates = COORDINATES[square[0]]+i;
 		rankMoveCoordinates = COORDINATES[square[1]]+i;
 
 		if(fileMoveCoordinates < 8 && rankMoveCoordinates < 8) {
 			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
-				displayHighlightedBoard(tempBoard);
 
 				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
@@ -235,9 +232,8 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
-	tempBoard = JSON.parse(JSON.stringify(board));
-
 	for(let i = 1; i < board.length; ++i) { // Top-right
+		tempBoard = JSON.parse(JSON.stringify(board));
 		fileMoveCoordinates = COORDINATES[square[0]]+i;
 		rankMoveCoordinates = COORDINATES[square[1]]-i;
 
@@ -261,9 +257,8 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
-	tempBoard = JSON.parse(JSON.stringify(board));
-
 	for(let i = 1; i < board.length; ++i) { // Bottom-left
+		tempBoard = JSON.parse(JSON.stringify(board));
 		fileMoveCoordinates = COORDINATES[square[0]]-i;
 		rankMoveCoordinates = COORDINATES[square[1]]+i;
 
