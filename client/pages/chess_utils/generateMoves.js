@@ -1,7 +1,7 @@
 import { COORDINATES, FILE_COORDINATES, RANK_COORDINATES } from './constants.js';
 import inCheck from './inCheck.js';
 import isEnemyPiece from './isEnemyPiece.js';
-import displayHighlightedBoard from '../chess.js';
+import generateMovesForChecks from './generateMovesForChecks.js';
 
 export default function generateMoves(square, board, kingPosition) {
 	switch(board[COORDINATES[square[1]]][COORDINATES[square[0]]]) {
@@ -20,9 +20,9 @@ export default function generateMoves(square, board, kingPosition) {
 
 			return diagonalsWhite + straightsWhite;
 		case 7:
-			return generateKingMoves(square, board, 1, false);
 		case 8:
-			return generateKingMoves(square, board, 1, true);
+			return generateKingMoves(square, board, 1);
+			return generateKingMoves(square, board, 1);
 		case 9:
 			return generateBlackPawnMoves(square, board, kingPosition);
 		case 10:
@@ -38,9 +38,8 @@ export default function generateMoves(square, board, kingPosition) {
 
 			return diagonalsBlack + straightsBlack;
 		case 15:
-			return generateKingMoves(square, board, 0, false);
-		case 16:
-			return generateKingMoves(square, board, 0, true);
+			return generateKingMoves(square, board, 0);
+			return generateKingMoves(square, board, 0);
 	}
 }
 
@@ -71,6 +70,18 @@ function generateKingMoves(square, board, enemyColor) {
 	}
 	if((COORDINATES[square[0]]+1 < 8 && COORDINATES[square[1]]+1 < 8) && !inCheck(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1], board, enemyColor) && (board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] === 0 || isEnemyPiece(board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1], enemyColor))) {
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]); // Bottom-Right
+	}
+
+	if(board[square[1]][square[0]] === 8) {
+		if(inCheck(square, board, 1)) return moves;
+
+		for(let i = 0; i < board.length; ++i) {
+			for(let j = 0; j < board[i].length; ++j) {
+				if(board[i][j] !== 0 && isEnemyPiece(board[i][j], 1)) {
+					const moves = generateMovesForChecks(FILE_COORDINATES[j]+RANK_COORDINATES[i], board);
+				}
+			}
+		}
 	}
 
 	return moves;
