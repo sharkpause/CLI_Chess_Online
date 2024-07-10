@@ -1,9 +1,7 @@
 TODO:
 
 - Implement king position memory system or do a linear search for the king position
-- Fix the tempBoard problem by resetting the board after each move simulation
 - Work on castling
 - Work on move history
 - Work on en passant
-- Work on checks
 - Make a feature where only one instance of an account can exist using a web socket only when the user is establishing a chess game
