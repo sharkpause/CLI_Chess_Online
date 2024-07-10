@@ -1,6 +1,7 @@
 TODO:
 
 - Implement king position memory system or do a linear search for the king position
+- Work on castling
 - Work on move history
 - Work on en passant
 - Work on checks
