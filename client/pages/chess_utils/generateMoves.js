@@ -12,29 +12,35 @@ export default function generateMoves(square, board, kingPosition) {
 		case 3:
 			return generateBishopMoves(square, board, 1, kingPosition);
 		case 4:
-			return generateRookMoves(square, board, 1, kingPosition);
 		case 5:
+			return generateRookMoves(square, board, 1, kingPosition);
+		case 6:
 			const diagonalsWhite = generateBishopMoves(square, board, 1, kingPosition);
 			const straightsWhite = generateRookMoves(square, board, 1, kingPosition);
 
 			return diagonalsWhite + straightsWhite;
-		case 6:
-			return generateKingMoves(square, board, 1);
+		case 7:
+			return generateKingMoves(square, board, 1, false);
 		case 8:
-			return generateBlackPawnMoves(square, board, kingPosition);
+			return generateKingMoves(square, board, 1, true);
 		case 9:
-			return generateKnightMoves(square, board, 0, kingPosition);
+			return generateBlackPawnMoves(square, board, kingPosition);
 		case 10:
-			return generateBishopMoves(square, board, 0, kingPosition);
+			return generateKnightMoves(square, board, 0, kingPosition);
 		case 11:
-			return generateRookMoves(square, board, 0, kingPosition);
+			return generateBishopMoves(square, board, 0, kingPosition);
 		case 12:
+		case 13:
+			return generateRookMoves(square, board, 0, kingPosition);
+		case 14:
 			const diagonalsBlack = generateBishopMoves(square, board, 0, kingPosition);
 			const straightsBlack = generateRookMoves(square, board, 0, kingPosition);
 
 			return diagonalsBlack + straightsBlack;
-		case 13:
-			return generateKingMoves(square, board, 0);
+		case 15:
+			return generateKingMoves(square, board, 0, false);
+		case 16:
+			return generateKingMoves(square, board, 0, true);
 	}
 }
 

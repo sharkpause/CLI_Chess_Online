@@ -32,11 +32,11 @@ import inCheck from './chess_utils/inCheck.js';
 //];
 
 let board = [
-	[0, 0, 0, 0, 12, 0, 0, 0],
+	[0, 0, 0, 0, 14, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
-	[0, 0, 5, 0, 0, 0, 0, 0],
+	[0, 0, 6, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 6, 0, 0, 0],
+	[0, 0, 0, 0, 7, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0]
@@ -51,16 +51,18 @@ let blackKingPosition = ''; // Might rename them along with the functions to fri
  * 2 = White Knight
  * 3 = White Bishop
  * 4 = White Rook
- * 5 = White Queen
- * 6 = White King
- * 7 = White King (unmoved)
- * 8 = Black Pawn
- * 9 = Black Knight
- * 10 = Black Bishop
- * 11 = Black Rook
- * 12 = Black Queen
- * 13 = Black King
- * 14 = Black King (unmoved)
+ * 5 = White Rook (unmoved)
+ * 6 = White Queen
+ * 7 = White King
+ * 8 = White King (unmoved)
+ * 9 = Black Pawn
+ * 10 = Black Knight
+ * 11 = Black Bishop
+ * 12 = Black Rook
+ * 13 = Black Rook (unmoved)
+ * 14 = Black Queen
+ * 15 = Black King
+ * 16 = Black King (unmoved)
  */
 
 const PIECE_CHARACTER = [
@@ -69,12 +71,14 @@ const PIECE_CHARACTER = [
 	BLUE + String.fromCharCode(0x265e) + WHITE,
 	BLUE + String.fromCharCode(0x265d) + WHITE,
 	BLUE + String.fromCharCode(0x265c) + WHITE,
+	BLUE + String.fromCharCode(0x265c) + WHITE,
 	BLUE + String.fromCharCode(0x265b) + WHITE,
 	BLUE + String.fromCharCode(0x265a) + WHITE,
 	BLUE + String.fromCharCode(0x265a) + WHITE,
 	RED + String.fromCharCode(0x265f) + WHITE,
 	RED + String.fromCharCode(0x265e) + WHITE,
 	RED + String.fromCharCode(0x265d) + WHITE,
+	RED + String.fromCharCode(0x265c) + WHITE,
 	RED + String.fromCharCode(0x265c) + WHITE,
 	RED + String.fromCharCode(0x265b) + WHITE,
 	RED + String.fromCharCode(0x265a) + WHITE,

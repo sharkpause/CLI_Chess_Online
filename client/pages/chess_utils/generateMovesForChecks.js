@@ -10,29 +10,35 @@ export default function generateMoves(square, board) {
 		case 3:
 			return generateBishopMoves(square, board, 1);
 		case 4:
-			return generateRookMoves(square, board, 1);
 		case 5:
+			return generateRookMoves(square, board, 1);
+		case 6:
 			const diagonalsWhite = generateBishopMoves(square, board, 1);
 			const straightsWhite = generateRookMoves(square, board, 1);
 
 			return diagonalsWhite + straightsWhite;
-		case 6:
-			return generateKingMoves(square, board, 1);
+		case 7:
+			return generateKingMoves(square, board, 1, false);
 		case 8:
-			return generateBlackPawnMoves(square, board);
+			return generateKingMoves(square, board, 1, true);
 		case 9:
-			return generateKnightMoves(square, board, 0);
+			return generateBlackPawnMoves(square, board);
 		case 10:
-			return generateBishopMoves(square, board, 0);
+			return generateKnightMoves(square, board, 0);
 		case 11:
-			return generateRookMoves(square, board, 0);
+			return generateBishopMoves(square, board, 0);
 		case 12:
+		case 13:
+			return generateRookMoves(square, board, 0);
+		case 14:
 			const diagonalsBlack = generateBishopMoves(square, board, 0);
 			const straightsBlack = generateRookMoves(square, board, 0);
 
 			return diagonalsBlack + straightsBlack;
-		case 13:
-			return generateKingMoves(square, board, 0);
+		case 15:
+			return generateKingMoves(square, board, 0, false);
+		case 16:
+			return generateKingMoves(square, board, 0, true);
 	}
 }
 
@@ -68,7 +74,7 @@ function generateKingMoves(square, board, enemyColor) {
 	return moves;
 }
 
-function generateRookMoves(square, board, enemyColor, kingPosition) {
+function generateRookMoves(square, board, enemyColor) {
 	const moves = [];
 
 	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty
@@ -126,7 +132,7 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 	return moves;
 }
 
-function generateBishopMoves(square, board, enemyColor, kingPosition) {
+function generateBishopMoves(square, board, enemyColor) {
 	const moves = [];
 
 	for(let i = 1; i < board.length; ++i) { // Top-left
@@ -184,7 +190,7 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 	return moves;
 }
 
-function generateWhitePawnMoves(square, board, kingPosition) {
+function generateWhitePawnMoves(square, board) {
 	const moves = [];
 
 	if(COORDINATES[square[1]]-2 > 0 && board[COORDINATES[square[1]]-2][COORDINATES[square[0]]] === 0) {
@@ -207,7 +213,7 @@ function generateWhitePawnMoves(square, board, kingPosition) {
 	return moves;
 }
 
-function generateBlackPawnMoves(square, board, kingPosition) {
+function generateBlackPawnMoves(square, board) {
 	const moves = [];
 
 	if(COORDINATES[square[1]]+2 > 0 && board[COORDINATES[square[1]]+2][COORDINATES[square[0]]] === 0) {
@@ -230,7 +236,7 @@ function generateBlackPawnMoves(square, board, kingPosition) {
 	return moves;
 }
 
-function generateKnightMoves(square, board, enemyColor, kingPosition) {
+function generateKnightMoves(square, board, enemyColor) {
 	const moves = [];
 
 	if((COORDINATES[square[1]] - 2 >= 0 && COORDINATES[square[0]] - 1 >= 0) && (board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] === 0 || isEnemyPiece(board[COORDINATES[square[1]] - 2][COORDINATES[square[0]] - 1] > 7, enemyColor))) {
