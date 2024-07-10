@@ -75,8 +75,6 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 
 	let tempBoard = JSON.parse(JSON.stringify(board));
 	let moveCoordinates;
-	let fileMoveCoordinates;
-	let rankMoveCoordinates;
 
 	for(let i = 1; i < board.length; ++i) { // Left, condition: 0 = checks for empty
 		moveCoordinates = COORDINATES[square[0]]-i;
@@ -183,7 +181,8 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 	const moves = [];
 
 	let tempBoard = JSON.parse(JSON.stringify(board));
-	let moveCoordinates;
+	let fileMoveCoordinates;
+	let rankMoveCoordinates;
 
 	for(let i = 1; i < board.length; ++i) { // Top-left
 		fileMoveCoordinates = COORDINATES[square[0]]-i;
@@ -239,7 +238,7 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 
 	for(let i = 1; i < board.length; ++i) { // Top-right
 		fileMoveCoordinates = COORDINATES[square[0]]-i;
-		rankMoveCoordinates = COORDINATeS[square[1]]+i;
+		rankMoveCoordinates = COORDINATES[square[1]]+i;
 
 		if(fileMoveCoordinates >= 0 && rankMoveCoordinates < 8) {
 			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
@@ -292,6 +291,7 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 
 function generateWhitePawnMoves(square, board, kingPosition) {
 	const moves = [];
+	const enemyColor = 1;
 
 	let tempBoard = JSON.parse(JSON.stringify(board));
 
@@ -332,6 +332,7 @@ function generateWhitePawnMoves(square, board, kingPosition) {
 
 function generateBlackPawnMoves(square, board, kingPosition) {
 	const moves = [];
+	const enemyColor = 0;
 
 	let tempBoard = JSON.parse(JSON.stringify(board));
 
@@ -354,7 +355,7 @@ function generateBlackPawnMoves(square, board, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	move(square, FILE_COORDINATES[COORDINATES[square[1]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1], tempBoard);
 
-	if(COORDINATES[square[1]]+1 > 0 && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 7) {
+	if(COORDINATES[square[1]]+1 > 0 && !inCheck(kingPosition, tempBoard, enemyColor) && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]-1] > 7) {
 		// Checks if one square in front of the pawn and to the left has an enemy piece
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
@@ -362,7 +363,7 @@ function generateBlackPawnMoves(square, board, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	move(square, FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1], tempBoard);
 
-	if(COORDINATES[square[1]]+1 > 0 && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] > 7) {
+	if(COORDINATES[square[1]]+1 > 0 && !inCheck(kingPosition, tempBoard, enemyColor) && board[COORDINATES[square[1]]+1][COORDINATES[square[0]]+1] > 7) {
 		// Checks if one square in front of the pawn and to the right has an enemy piece
 		moves.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[COORDINATES[square[1]]+1]);
 	}
@@ -375,9 +376,11 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 
 	let tempBoard = JSON.parse(JSON.stringify(board));
 	let fileMoveCoordinates = COORDINATES[square[0]] - 1;
-	let rankmoveCoordinates = COORDINATES[square[1]] - 2;
+	let rankMoveCoordinates = COORDINATES[square[1]] - 2;
 
-	if((rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates]][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares up and one square left is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -385,8 +388,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] + 1;
 	rankMoveCoordinates = COORDINATES[square[1]] - 2;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares up and one square right is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -394,8 +398,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] - 1;
 	rankMoveCoordinates = COORDINATES[square[1]] + 2;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares down and one square left is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -403,8 +408,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] + 1;
 	rankMoveCoordinates = COORDINATES[square[1]] + 2;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares down and one square right is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -412,8 +418,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] - 2;
 	rankMoveCoordinates = COORDINATES[square[1]] - 1;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares left and one square left is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -421,8 +428,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] - 2;
 	rankMoveCoordinates = COORDINATES[square[1]] + 1;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares left and one square right is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -430,8 +438,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] + 2;
 	rankMoveCoordinates = COORDINATES[square[1]] - 1;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
+	if((rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates] > 7, enemyColor))) {
 		// Check if two squares right and one square left is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -439,8 +448,9 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]] + 2;
 	rankMoveCoordinates = COORDINATES[square[1]] + 1;
+	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor))) {
+	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor))) {
 		// Check if two squares right and one square right is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
