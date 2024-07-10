@@ -83,13 +83,13 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 			if(board[COORDINATES[square[1]]][moveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
 			} else if(isEnemyPiece(board[COORDINATES[square[1]]][moveCoordinates], moveCoordinates, enemyColor)) {
 				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
 
 				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
 				break;
@@ -108,7 +108,7 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 			if(board[moveCoordinates][COORDINATES[square[0]]] === 0) {
 				move(square, square[0] + RANK_COORDINATES[moveCoordinates], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(square[0] + RANK_COORDINATES[moveCoordinates]);
 			} else if(isEnemyPiece(board[moveCoordinates][COORDINATES[square[0]]], enemyColor)) {
@@ -133,7 +133,7 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 			if(board[COORDINATES[square[1]]][moveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[moveCoordinates] + square[1], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(FILE_COORDINATES[moveCoordinates] + square[1]);
 			} else if(isEnemyPiece(board[COORDINATES[square[1]]][moveCoordinates], enemyColor)) {
@@ -158,7 +158,7 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 			if(board[moveCoordinates][COORDINATES[square[0]]] === 0) {
 				move(square, square[0] + RANK_COORDINATES[moveCoordinates], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(square[0] + RANK_COORDINATES[moveCoordinates]);
 			} else if(isEnemyPiece(board[moveCoordinates][COORDINATES[square[0]]], enemyColor)) {
@@ -192,7 +192,7 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
@@ -217,8 +217,9 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 		if(fileMoveCoordinates < 8 && rankMoveCoordinates < 8) {
 			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+				displayHighlightedBoard(tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
@@ -237,14 +238,14 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 
 	for(let i = 1; i < board.length; ++i) { // Top-right
-		fileMoveCoordinates = COORDINATES[square[0]]-i;
-		rankMoveCoordinates = COORDINATES[square[1]]+i;
+		fileMoveCoordinates = COORDINATES[square[0]]+i;
+		rankMoveCoordinates = COORDINATES[square[1]]-i;
 
-		if(fileMoveCoordinates >= 0 && rankMoveCoordinates < 8) {
+		if(fileMoveCoordinates < 8 && rankMoveCoordinates >= 0) {
 			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
@@ -263,14 +264,14 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 
 	for(let i = 1; i < board.length; ++i) { // Bottom-left
-		fileMoveCoordinates = COORDINATES[square[0]]+i;
-		rankMoveCoordinates = COORDINATES[square[1]]-i;
+		fileMoveCoordinates = COORDINATES[square[0]]-i;
+		rankMoveCoordinates = COORDINATES[square[1]]+i;
 
 		if(fileMoveCoordinates < 8 && rankMoveCoordinates >= 0) {
 			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
 				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+				if(inCheck(kingPosition, tempBoard, enemyColor)) continue;
 
 				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
@@ -451,7 +452,7 @@ function generateKnightMoves(square, board, enemyColor, kingPosition) {
 	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
 	if((rankMoveCoordinates < 8 && fileMoveCoordinates < 8) && !inCheck(kingPosition, tempBoard, enemyColor) && (board[rankMoveCoordinates][fileMoveCoordinates] === 0 || isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor))) {
-		// Check if two squares right and one square right is empty
+		// Check if two squares right and one square down is empty
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
 

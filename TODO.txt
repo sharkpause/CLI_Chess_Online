@@ -1,6 +1,7 @@
 TODO:
 
 - Implement king position memory system or do a linear search for the king position
+- Fix the tempBoard problem by resetting the board after each move simulation
 - Work on castling
 - Work on move history
 - Work on en passant
