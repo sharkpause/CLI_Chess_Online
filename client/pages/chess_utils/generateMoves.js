@@ -180,38 +180,78 @@ function generateRookMoves(square, board, enemyColor, kingPosition) {
 function generateBishopMoves(square, board, enemyColor, kingPosition) {
 	const moves = [];
 
+	let tempBoard = JSON.parse(JSON.stringify(board));
+	let moveCoordinates;
+
 	for(let i = 1; i < board.length; ++i) { // Top-left
-		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]-i >= 0) {
-			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i] === 0) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]-i], enemyColor)) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
+		fileMoveCoordinates = COORDINATES[square[0]]-i;
+		rankMoveCoordinates = COORDINATES[square[1]]-i;
+
+		if(fileMoveCoordinates >= 0 && rankMoveCoordinates >= 0) {
+			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
+			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 				break;
 			} else {
 				break;
 			}
 		}
 	}
+
+	tempBoard = JSON.parse(JSON.stringify(board));
 
 	for(let i = 1; i < board.length; ++i) { // Bottom-right
-		if(COORDINATES[square[0]]+i < 8 && COORDINATES[square[1]]+i < 8) {
-			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]+i] === 0) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]+i], enemyColor)) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
+		fileMoveCoordinates = COORDINATES[square[0]]+i;
+		rankMoveCoordinates = COORDINATES[square[1]]+i;
+
+		if(fileMoveCoordinates < 8 && rankMoveCoordinates < 8) {
+			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
+			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankmoveCoordinates]);
 				break;
 			} else {
 				break;
 			}
 		}
 	}
+
+	tempBoard = JSON.parse(JSON.stringify(board));
 
 	for(let i = 1; i < board.length; ++i) { // Top-right
-		if(COORDINATES[square[0]]-i >= 0 && COORDINATES[square[1]]+i < 8) {
-			if(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]-i] === 0) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]+i][COORDINATES[square[0]]-i], enemyColor)) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]-i] + RANK_COORDINATES[COORDINATES[square[1]]+i]);
+		fileMoveCoordinates = COORDINATES[square[0]]-i;
+		rankMoveCoordinates = COORDINATeS[square[1]]+i;
+
+		if(fileMoveCoordinates >= 0 && rankMoveCoordinates < 8) {
+			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
+			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 				break;
 			} else {
 				break;
@@ -219,12 +259,25 @@ function generateBishopMoves(square, board, enemyColor, kingPosition) {
 		}
 	}
 
+	tempBoard = JSON.parse(JSON.stringify(board));
+
 	for(let i = 1; i < board.length; ++i) { // Bottom-left
-		if(COORDINATES[square[0]]+i < 8 && COORDINATES[square[1]]-i >= 0) {
-			if(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]+i] === 0) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
-			} else if(isEnemyPiece(board[COORDINATES[square[1]]-i][COORDINATES[square[0]]+i], enemyColor)) {
-				moves.push(FILE_COORDINATES[COORDINATES[square[0]]+i] + RANK_COORDINATES[COORDINATES[square[1]]-i]);
+		fileMoveCoordinates = COORDINATES[square[0]]+i;
+		rankMoveCoordinates = COORDINATES[square[1]]-i;
+
+		if(fileMoveCoordinates < 8 && rankMoveCoordinates >= 0) {
+			if(board[rankMoveCoordinates][fileMoveCoordinates] === 0) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
+			} else if(isEnemyPiece(board[rankMoveCoordinates][fileMoveCoordinates], enemyColor)) {
+				move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+				if(inCheck(kingPosition, tempBoard, enemyColor)) break;
+
+				moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 				break;
 			} else {
 				break;
