@@ -3,6 +3,7 @@ import generateMoves from './generateMoves.js';
 
 export default function validateMove(before, after, board) {
 	const movingPiece = board[COORDINATES[before[1]]][COORDINATES[before[0]]];
+	if(movingPiece <= 0) return 1;
 
 	const moves = generateMoves(before, board);
 
