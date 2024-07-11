@@ -33,13 +33,13 @@ import inCheck from './chess_utils/inCheck.js';
 
 let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
+	[0, 0, 0, 0, 9, 0, 0, 0], // Testing board
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[5, 0, 0, 0, 8, 0, 0, 5]
+	[0, 0, 0, 0, 1, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
 let whiteKingPosition = 'e4'; // White is essentially just friendly king, and black is enemy king
@@ -143,4 +143,4 @@ function move(before, after, board) {
 	if(pieceToMove === 13 || pieceToMove === 14) blackKingPosition = after;
 }
 
-displayHighlightedBoard(board, generateMoves('e1', board, whiteKingPosition));
+displayHighlightedBoard(board, generateMoves('e2', board, whiteKingPosition));

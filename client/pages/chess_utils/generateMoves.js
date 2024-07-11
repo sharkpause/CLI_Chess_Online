@@ -328,7 +328,7 @@ function generateWhitePawnMoves(square, board, kingPosition, enPassant) {
 	let fileMoveCoordinates;
 	let rankMoveCoordinates = COORDINATES[square[1]]-2;
 
-	if(square[1] === 2) {
+	if(square[1] == 2) {
 		move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
 		if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {
@@ -378,7 +378,7 @@ function generateBlackPawnMoves(square, board, kingPosition) {
 	let tempBoard = JSON.parse(JSON.stringify(board));
 	let rankMoveCoordinates = COORDINATES[square[1]]+2;
 
-	if(square[1] === 7) {
+	if(square[1] == 7) {
 		move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
 		if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {
