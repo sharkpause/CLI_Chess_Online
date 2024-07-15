@@ -329,7 +329,7 @@ function generateWhitePawnMoves(square, board, kingPosition, enPassant) {
 	let rankMoveCoordinates;
 
 	if(square[1] == 2) {
-		rankMoveCoodinates = COORDINATES[square[1]]-2;
+		rankMoveCoordinates = COORDINATES[square[1]]-2;
 		move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
 		if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {

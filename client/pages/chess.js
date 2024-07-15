@@ -33,12 +33,12 @@ import inCheck from './chess_utils/inCheck.js';
 
 let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[9, 9, 9, 9, 9, 9, 9, 9], // Testing board
-	[0, 0, 0, 0, 0, 0, 0, 0],
-	[1, 1, 1, 0, 1, 1, 1, 1],
+	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 9, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 1, 0, 1],
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
@@ -127,8 +127,8 @@ export default function displayHighlightedBoard(board, squares) {
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
 
-function move(before, after, board, enPassant) {
-	if(!validateMove(before, after, board)) return 1;
+function move(before, after, board, enPassant, kingPosition) {
+	if(!validateMove(before, after, board, kingPosition)) return 1;
 
 	const beforeFile = COORDINATES[before[0]];
 	const beforeRank = COORDINATES[before[1]];
@@ -146,20 +146,15 @@ function move(before, after, board, enPassant) {
 	if(pieceToMove === 7 || pieceToMove === 8) whiteKingPosition = after;
 	if(pieceToMove === 15 || pieceToMove === 16) blackKingPosition = after;
 
-	if(pieceToMove === 9 && before[1] === '7') {
-		if(afterRank - beforeRank !== 2) return;
+	if(Math.abs(afterRank - beforeRank !== 2)) return;
 
+	if((pieceToMove === 9 && before[1] === '7') || (pieceToMove === 1 && before[1] === '2')) {
 		if(COORDINATES[afterFile]-1 > 0 && board[afterRank][afterFile-1] === 1) enPassant.push([FILE_COORDINATES[afterFile-1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank-1]]);
 
 		if(COORDINATES[afterFile]+1 > 0 && board[afterRank][afterFile+1] === 1) enPassant.push([FILE_COORDINATES[afterFile+1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank-1]]);
 	}
-
-//	if(COORDINATES[square[0]]+1 < 8 && board[rankMoveCoordinates][COORDINATES[square[0]]+1] === 9) enPassant.push(FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[rankMoveCoordinates]);
-
-//	if(COORDINATES[square[0]]-1 > 0 && board[rankMoveCoordinates][COORDINATES[square[0]]-1] === 1) enPassant.push([FILE_COORDINATES[COORDINATES[square[0]]-1] + RANK_COORDINATES[rankMoveCoordinates], 0]);
-//	if(COORDINATES[square[0]]+1 < 8 && board[rankMoveCoordinates][COORDINATES[square[0]]+1] === 1) enPassant.push([FILE_COORDINATES[COORDINATES[square[0]]+1] + RANK_COORDINATES[rankMoveCoordinates], 1]);
 }
 
-move('d7', 'd5', board, enPassant);
+move('h2', 'h4', board, enPassant, whiteKingPosition);
 console.log(enPassant);
 displayBoard(board);
