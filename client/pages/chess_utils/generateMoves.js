@@ -376,7 +376,7 @@ function generateBlackPawnMoves(square, board, kingPosition, enPassant) {
 	let tempBoard = JSON.parse(JSON.stringify(board));
 	let rankMoveCoordinates;
 
-	if(square[1] == 7) {
+	if(square[1] === '7') {
 		rankMoveCoordinates = COORDINATES[square[1]]+2;
 		move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
