@@ -127,8 +127,8 @@ export default function displayHighlightedBoard(board, squares) {
 	console.log(RESET + "\n\n\t a  b  c  d  e  f  g  h");
 }
 
-function move(before, after, board, enPassant, kingPosition) {
-	if(!validateMove(before, after, board, kingPosition)) return 1;
+function move(before, after, board, kingPosition) {
+	if(!validateMove(before, after, board, kingPosition, enPassant)) return 1;
 
 	const beforeFile = COORDINATES[before[0]];
 	const beforeRank = COORDINATES[before[1]];
@@ -146,6 +146,8 @@ function move(before, after, board, enPassant, kingPosition) {
 	if(pieceToMove === 7 || pieceToMove === 8) whiteKingPosition = after;
 	if(pieceToMove === 15 || pieceToMove === 16) blackKingPosition = after;
 
+	if(enPassant.length > 0) enPassant = [];
+
 	if(Math.abs(afterRank - beforeRank) !== 2) return;
 
 	if(pieceToMove === 1 && before[1] === '2') {
@@ -159,6 +161,9 @@ function move(before, after, board, enPassant, kingPosition) {
 	}
 }
 
-move('f2', 'f4', board, enPassant, whiteKingPosition);
+move('f2', 'f4', board, whiteKingPosition);
 console.log(enPassant);
-displayBoard(board);
+displayHighlightedBoard(board, generateMoves('g4', board, whiteKingPosition, enPassant));
+console.log(enPassant);
+move('f4', 'f5', board, whiteKingPosition);
+displayHighlightedBoard(board, generateMoves('g4', board, whiteKingPosition, enPassant));
