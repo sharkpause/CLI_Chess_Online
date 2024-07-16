@@ -339,10 +339,11 @@ function generateWhitePawnMoves(square, board, kingPosition, enPassant) {
 	}
 
 	tempBoard = JSON.parse(JSON.stringify(board));
-	rankMoveCoordinates = COORDINATES[square[1]]-1;
-	move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if(rankMoveCoordinates > 0 && !inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {
+	rankMoveCoordinates = COORDINATES[square[1]]-1;
+	if(rankMoveCoordinates >= 0) move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+
+	if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {
 		// Checks if one square in front of the pawn is empty
 		moves.push(square[0] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -350,18 +351,18 @@ function generateWhitePawnMoves(square, board, kingPosition, enPassant) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]]-1;
 	rankMoveCoordinates = COORDINATES[square[1]]-1;
-	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+	if(rankMoveCoordinates >= 0 && fileMoveCoordinates >= 0) move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if(rankMoveCoordinates > 0 && fileMoveCoordinates > 0 && board[rankMoveCoordinates][fileMoveCoordinates] > 8) {
+	if(board[rankMoveCoordinates][fileMoveCoordinates] > 8) {
 		// Checks if one square in front of the pawn and to the left has an enemy piece
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
 
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]]+1;
-	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+	if(rankMoveCoordinates >= 0 && fileMoveCoordinates < 8) move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if(rankMoveCoordinates > 0 && fileMoveCoordinates < 8 && board[rankMoveCoordinates][fileMoveCoordinates] > 8) {
+	if(rankMoveCoordinates >= 0 && fileMoveCoordinates < 8 && board[rankMoveCoordinates][fileMoveCoordinates] > 8) {
 		// Checks if one square in front of the pawn and to the right has an enemy piece
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -388,18 +389,18 @@ function generateBlackPawnMoves(square, board, kingPosition, enPassant) {
 
 	tempBoard = JSON.parse(JSON.stringify(board));
 	rankMoveCoordinates = COORDINATES[square[1]]+1;
-	move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+	if(rankMoveCoordinates < 8) move(square, square[0] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if(rankMoveCoordinates < 8 && !inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {
+	if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][COORDINATES[square[0]]] === 0) {
 		// Checks if one square in front of the pawn is empty
 		moves.push(square[0] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
 
 	tempBoard = JSON.parse(JSON.stringify(board));
 	let fileMoveCoordinates = COORDINATES[square[0]]-1;
-	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+	if(rankMoveCoordinates < 8 && fileMoveCoordinates >= 0) move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if(rankMoveCoordinates < 8 && fileMoveCoordinates > 0 && !inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][fileMoveCoordinates] < 9) {
+	if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][fileMoveCoordinates] < 9) {
 		// Checks if one square in front of the pawn and to the left has an enemy piece
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}
@@ -407,9 +408,9 @@ function generateBlackPawnMoves(square, board, kingPosition, enPassant) {
 	tempBoard = JSON.parse(JSON.stringify(board));
 	fileMoveCoordinates = COORDINATES[square[0]]+1;
 	rankMoveCoordinates = COORDINATES[square[1]]+1;
-	move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
+	if(rankMoveCoordinates < 8 && fileMoveCoordinates < 8) move(square, FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates], tempBoard);
 
-	if(rankMoveCoordinates < 8 && fileMoveCoordinates < 8 && !inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][fileMoveCoordinates] < 9) {
+	if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][fileMoveCoordinates] < 9) {
 		// Checks if one square in front of the pawn and to the right has an enemy piece
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
 	}

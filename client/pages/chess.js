@@ -146,15 +146,19 @@ function move(before, after, board, enPassant, kingPosition) {
 	if(pieceToMove === 7 || pieceToMove === 8) whiteKingPosition = after;
 	if(pieceToMove === 15 || pieceToMove === 16) blackKingPosition = after;
 
-	if(Math.abs(afterRank - beforeRank !== 2)) return;
+	if(Math.abs(afterRank - beforeRank) !== 2) return;
 
-	if((pieceToMove === 9 && before[1] === '7') || (pieceToMove === 1 && before[1] === '2')) {
-		if(COORDINATES[afterFile]-1 > 0 && board[afterRank][afterFile-1] === 1) enPassant.push([FILE_COORDINATES[afterFile-1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank-1]]);
+	if(pieceToMove === 1 && before[1] === '2') {
+		if(COORDINATES[afterFile]-1 >= 0 && board[afterRank][afterFile-1] === 9) enPassant.push([FILE_COORDINATES[afterFile-1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank+1]]);
 
-		if(COORDINATES[afterFile]+1 > 0 && board[afterRank][afterFile+1] === 1) enPassant.push([FILE_COORDINATES[afterFile+1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank-1]]);
+		if(COORDINATES[afterFile]+1 > 0 && board[afterRank][afterFile+1] === 9) enPassant.push([FILE_COORDINATES[afterFile+1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank+1]]);
+	} else if(pieceToMove === 9 && before[1] === '7') {
+		if(COORDINATES[afterFile]-1 >= 0 && board[afterRank][afterFile-1] === 1) enPassant.push([FILE_COORDINATES[afterFile-1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank-1]]);
+		
+		if(COORDINATES[afterFile]+1 >= 0 && board[afterRank][afterFile+1] === 1) enPassant.push([FILE_COORDINATES[afterFile+1] + RANK_COORDINATES[afterRank], FILE_COORDINATES[afterFile] + RANK_COORDINATES[afterRank-1]]);
 	}
 }
 
-move('h2', 'h4', board, enPassant, whiteKingPosition);
+move('f2', 'f4', board, enPassant, whiteKingPosition);
 console.log(enPassant);
 displayBoard(board);
