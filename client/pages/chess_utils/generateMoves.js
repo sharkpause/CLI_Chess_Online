@@ -370,6 +370,10 @@ function generateWhitePawnMoves(square, board, kingPosition, enPassant) {
 		if(enPassant[i][0] === square) moves.push(enPassant[i][1]);
 	}
 
+	for(let i = 0; i < enPassant.length; ++i) {
+		if(enPassant[i][0] === square) moves.push(enPassant[i][1]);
+	}
+
 	return moves;
 }
 
@@ -416,6 +420,10 @@ function generateBlackPawnMoves(square, board, kingPosition, enPassant) {
 	if(!inCheck(kingPosition, tempBoard, enemyColor) && board[rankMoveCoordinates][fileMoveCoordinates] < 9 && board[rankMoveCoordinates][fileMoveCoordinates] > 0) {
 		// Checks if one square in front of the pawn and to the right has an enemy piece
 		moves.push(FILE_COORDINATES[fileMoveCoordinates] + RANK_COORDINATES[rankMoveCoordinates]);
+	}
+
+	for(let i = 0; i < enPassant.length; ++i) {
+		if(enPassant[i][0] === square) moves.push(enPassant[i][1]);
 	}
 
 	return moves;

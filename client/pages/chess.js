@@ -33,12 +33,12 @@ import inCheck from './chess_utils/inCheck.js';
 
 let board = [
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0], // Testing board
+	[0, 0, 0, 0, 0, 0, 9, 0], // Testing board
+	[0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 1],
 	[0, 0, 0, 0, 0, 0, 0, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 9, 0],
 	[0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 1, 0, 1],
 	[0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
@@ -161,9 +161,5 @@ function move(before, after, board, kingPosition) {
 	}
 }
 
-move('f2', 'f4', board, whiteKingPosition);
-console.log(enPassant);
-displayHighlightedBoard(board, generateMoves('g4', board, whiteKingPosition, enPassant));
-move('f4', 'f5', board, whiteKingPosition);
-console.log(enPassant);
-displayHighlightedBoard(board, generateMoves('g4', board, whiteKingPosition, enPassant));
+move('g7', 'g5', board, whiteKingPosition);
+displayHighlightedBoard(board, generateMoves('h5', board, whiteKingPosition, enPassant));
