@@ -164,6 +164,6 @@ function move(before, after, board, kingPosition) {
 move('f2', 'f4', board, whiteKingPosition);
 console.log(enPassant);
 displayHighlightedBoard(board, generateMoves('g4', board, whiteKingPosition, enPassant));
-console.log(enPassant);
 move('f4', 'f5', board, whiteKingPosition);
+console.log(enPassant);
 displayHighlightedBoard(board, generateMoves('g4', board, whiteKingPosition, enPassant));
